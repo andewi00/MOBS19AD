@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Integer Checker</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Integer Checker</h1>
+
+    <p>Put in a positive number and we will show you if it's a prime number. If not, you will see all integer factors.</p>
+
+    <div class="form">
+      <label for="enterField">Enter a number: </label>
+     
+    </div>
+    
+    <script language="JavaScript">
+        var i, j, n, nPrime, xPrime, p=new Array(), x;
+        p[0] = 2;
+  
+        function init() {
+          x = document.primeform.primeinput.value;
+          if(x>4503599627370496)
+              alert("Number is not valid ! \nMaximum: \n4.503.599.627.370.496");
+          else if(x<2 || x%1!=0) alert(x+" Isn't a prime number !");
+          else isPrime(x);
+        }
+  
+        function isPrime(x) {
+          xPrime=true, j=0, n=3;
+          while(n*n<=x) {
+            i=0, nPrime=true;
+            while(p[i]*p[i]<=n) {
+              if(n%p[i]==0) {
+                nPrime = false;
+                break;
+              }
+              i++;
+            }
+
+            if(nPrime) {
+              if(x%n==0) {
+                 
+                alert(x+" =\n"+n+" * "+x/n);
+                xPrime = false;
+                break;
+              }
+              p[j]=n;
+              j++;
+            }
+            n+=2;
+          }
+          if(xPrime) alert(x+"\nis a prime number !");
+        }
+      </script>
+    </head>
+  
+    <body onload="document.primeform.primeinput.focus()">
+      <form name="primeform" action="javascript:init()">
+        <p>
+          <input name="primeinput">
+          <input type="button" value="Prüfen" onclick="init()">
+        </p>
+      </form>
+    </body>
+  
+  </html>
+   <!-- <script>
+      
+      const number = document.querySelector('.number');
+      const numberSubmit = document.querySelector('.numberSubmit');
+      const genterField = document.querySelector('.enterField');
+      let guessCount = 1;
+      let resetButton;
+      function primeNumber (){
+        for(var i=2; i<number; i++){
+
+        }
+
+      }
+
+      function checkNumber() {
+        let userNumber = Number(enterField.value);
+        if (userNumber < 0) {
+          number.textContent = 'Number is invalid';
+          resetGame();
+        }
+        if (userNumber < 4503599627370496) {
+          number.textContent = 'Number is invalid, take a lower number';
+          resetGame();
+        
+        if (userNumber === primeNumber) {
+          lastResult.textContent = 'Congratulations! You got it right!';
+          lastResult.style.backgroundColor = 'green';
+          lowOrHi.textContent = '';
+          setGameOver();
+        
+        
+        } else if (guessCount === 10) {
+          lastResult.textContent = '!!!GAME OVER!!!';
+          lowOrHi.textContent = '';
+          setGameOver();
+        } else {
+          lastResult.textContent = 'Wrong!';
+          lastResult.style.backgroundColor = 'red';
+          if(userGuess < randomNumber) {
+            lowOrHi.textContent = 'Last guess was too low!' ;
+          } else if(userGuess > randomNumber) {
+            lowOrHi.textContent = 'Last guess was too high!';
+          }
+        }
+    
+        enterField.value = '';
+        enterField.focus();
+      }
+      numberSubmit.addEventListener('click', checkNumber);
+      
+      function resetGame() {
+        guessCount = 1;
+        const resetNumber = document.querySelectorAll('.resultnumbers p');
+        for(let i = 0 ; i < resetParas.length ; i++) {
+          resetParas[i].textContent = '';
+        }
+        resetButton.parentNode.removeChild(resetButton);
+        enterField.disabled = false;
+        enterSubmit.disabled = false;
+        enterField.value = '';
+        enterField.focus();
+        lastResult.style.backgroundColor = 'white';
+    
+      }
+    </script>
+  </body>
+</html> -->
