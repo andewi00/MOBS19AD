@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>DOM Manipulation</title>
+    <link rel="stylesheet" href="dom.css">
+</head>
+
+<body>
+
+    <header>
+        <button class="item">
+            Helloho!
+        </button>
+        <button class="item">
+            Helloho!
+        </button>
+        <button class="item">
+            Helloho!
+        </button>
+        <button class="item">
+            Helloho!
+        </button>
+        <button class="item">
+            Helloho!
+        </button>
+        <button class="item">
+            Helloho!
+        </button>
+
+    </header>
+
+
+    <main>
+
+        <img src="file:///home/itlabuser/Bilder/bild.jpeg" height="500px" width="700px">
+
+    </main>
+
+    <footer>
+        Statusinformation
+    </footer>
+    <script>
+
+        function FillIn() { //welche Funktion soll ausgeführt werden
+
+            document.getElementsByTagName("img")[0].remove();
+
+            for (i = 0; i < 6; i++) {
+                var x = document.createElement("div"); //was wird erzeugt
+                x.innerHTML = "Hi";// was wird angezeigt
+                x.className = "Area"
+                document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
+            }
+        }
+
+        document.getElementsByTagName("button")[0].addEventListener("click", FillIn);
+//Funktion als klick einfügen auf den Button //welcher Button soll angesprochen werden?
+
+
+    </script>
+</body>
+
+</html>
