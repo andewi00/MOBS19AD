@@ -1,0 +1,65 @@
+﻿body {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2em;
+    font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal, Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
+    display: grid;
+    grid-template-areas: "header header header" "main main main" "footer footer footer";
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 10% auto 10%;
+    height: 100vh;
+    background: url('Tesla S.jpg');
+    background-size: 90% 100%; 
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+div.Status {
+    background: rgba(169, 167, 167, 0.1);
+    padding: 20px;
+    margin: 10px;
+    font-family: "Arial";
+    font-size: 0.5em;
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    grid-area: main;
+    padding: 0px;
+   
+   
+    border-bottom: solid;
+    border-bottom-color: dimgrey;
+    border-top: solid;
+    border-top-color: dimgrey;
+  
+}
+
+button {
+  display: inline;
+  
+}
+
+footer {
+    grid-area: footer;
+    /*background: #ff8086;*/
+  
+    display: flex;
+    justify-content: space-between;
+}
+
+div.Music {
+    background: rgba(169, 167, 167, 0.1);
+    padding: 20px;
+    margin: 10px;
+    font-family: "Arial";
+    font-size: 0.5em;
+    display: flex;
+    justify-content: space-between;
+}

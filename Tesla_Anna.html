@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Tesla Entertainment</title>
+    <link rel="stylesheet" href="Tesla_Design_Anna.css">
+</head>
+<body>
+    <header>
+        <div class="Status">
+            DATUM
+        </div>
+        <div class="Status">
+            ZEIT
+        </div>
+        <div class="Status">
+            TEMPERATUR
+        </div>
+    </header>
+
+
+    <main>
+        <button>
+            Luftdruck
+        </button>
+
+    </main>
+
+    <footer>
+        <div class="Music">
+            ♪♫ MUSIK ♪♫
+        </div>
+        <div class="Music">
+            AKTUELLES LIED ♪
+        </div>
+        <div class="Music">
+            COVER
+        </div>
+    </footer>
+    <script>
+
+        function ClickLD() { //welche Funktion soll ausgeführt werden
+            document.getElementsByTagName("button")[0].remove();
+                var x = document.createElement("div"); //was wird erzeugt
+                x.innerHTML = "Aktueller Luftdruck: 2,6 bar";// was wird angezeigt
+           
+                document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
+        }
+        function Back() {
+            var x = document.createElement("button");
+             x.innerHTML = "<<"
+            document.getElementsByTagName("header")[0].appendChild(x); 
+
+        }
+        document.getElementsByTagName("button")[0].addEventListener("click", ClickLD);
+        document.getElementsByTagName("button")[0].addEventListener("click", Back);
+
+       // function GoBack() {
+         //    document.getElementsByTagName("button")[0].remove();
+           // document.getElementsByTagName("div")[0].remove();
+        //}
+        document.getElementsByTagName("button")[0].addEventListener("click", GoBack);
+//Funktion als klick einfügen auf den Button //welcher Button soll angesprochen werden?
+
+
+    </script>
+</body>
+</html>
