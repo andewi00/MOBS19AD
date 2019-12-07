@@ -8,36 +8,110 @@
     <script src="Tesla_JS_Anna.js"></script>
 </head>
 <body>
+    
     <header>
         <div class="Status">
             DATUM
         </div>
         <div class="Status">
-            ZEIT
+          ZEIT
         </div>
         <div class="Status">
-            TEMPERATUR
+          TEMPERATUR
         </div>
     </header>
 
-      
     <main>
-        <button>
+        <button class="Value">
             Luftdruck
+        </button>
+        <button class="Value">
+            Luftfeuchtigkeit
+        </button>
+        <button class="Value">
+            Verbrauch
+        </button>
+        <button class="Value">
+            Reichweite
         </button>
 
     </main>
 
     <footer>
         <div class="Music">
-            ♪♫ MUSIK ♪♫
+           ♪♫ MUSIK ♪♫
         </div>
         <div class="Music">
-            AKTUELLES LIED ♪
+           AKTUELLES LIED ♪
         </div>
         <div class="Music">
-            COVER
+           COVER
         </div>
     </footer>
+
+    <script>
+      
+        function ClickLD() { 
+           document.getElementsByTagName("button")[0].remove();
+         
+         var x = document.createElement("div"); 
+         x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
+  
+         document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
+        }
+
+        function ClickLF() { 
+            document.getElementsByTagName("button")[1].remove();
+            var y = document.createElement("div"); 
+         y.innerHTML = "Aktuelle Luftfeuchtigkeit: 55%";
+  
+         document.getElementsByTagName("main")[0].appendChild(y); //wohin wird was kommen
+        }
+
+        function ClickAV() { 
+         document.getElementsByTagName("button")[2].remove();
+         var z = document.createElement("div"); 
+         z.innerHTML = "Aktueller Verbrauch: 20,7 kWh/100 km";
+  
+         document.getElementsByTagName("main")[0].appendChild(z); //wohin wird was kommen
+        }
+        function ClickVR() { 
+         document.getElementsByTagName("button")[3].remove();
+         var w = document.createElement("div"); 
+         w.innerHTML = "Verbleibende Reichweite: 200km";
+  
+         document.getElementsByTagName("main")[0].appendChild(w); //wohin wird was kommen
+        }
+       function Back() {
+        var v = document.createElement("button");
+        v.innerHTML = "<<"
+        v.className = "Back"
+
+        document.getElementsByTagName("header")[0].appendChild(v);
+        }
+
+        document.getElementsByTagName("button")[0].addEventListener("click", ClickLD);
+        document.getElementsByTagName("button")[0].addEventListener("click", Back);
+        document.getElementsByTagName("button")[1].addEventListener("click", ClickLF);
+        document.getElementsByTagName("button")[1].addEventListener("click", Back);
+        document.getElementsByTagName("button")[2].addEventListener("click", ClickAV);
+        document.getElementsByTagName("button")[2].addEventListener("click", Back);
+        document.getElementsByTagName("button")[3].addEventListener("click", ClickVR);
+        document.getElementsByTagName("button")[3].addEventListener("click", Back);
+      
+           // function GoBack() {
+            //    document.getElementsByTagName("button")[0].remove();
+            // document.getElementsByTagName("div")[0].remove();
+            //}
+        //document.getElementsByTagName("button").addEventListener("click", GoBack);
+        var min = -1;
+        var max = 3;
+        var zahl1 = (Math.random() * (max - min)) + min;
+        var Temp = (Math.ceil(zahl1 * 20) / 20).toFixed(2);
+        console.log(zahl1.toFixed(2));
+        document.getElementsByClassName("Status")[2].innerText = zahl1.toFixed(2) + "°C";
+
+        setTimeout("document.location.reload();", 10000);
+    </script>
 </body>
 </html>

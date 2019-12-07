@@ -41,9 +41,13 @@ main {
   
 }
 
-button {
-  display: inline;
-  
+button.Value {
+    display: inline;
+}
+
+button.Back{
+    color: #ff6a00;
+    float: left;
 }
 
 footer {
