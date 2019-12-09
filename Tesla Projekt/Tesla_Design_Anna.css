@@ -43,12 +43,16 @@ main {
 
 button.Value {
     display: inline;
+    background-color: grey;
+    border-style: solid;
+    border-color: darkgrey;
 }
 
 button.Back{
     color: #ff6a00;
     float: left;
 }
+
 
 footer {
     grid-area: footer;

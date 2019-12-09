@@ -1,37 +1,39 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
     <title>Tesla Entertainment</title>
     <link rel="stylesheet" href="Tesla_Design_Anna.css">
-    <script src="Tesla_JS_Anna.js"></script>
+
 </head>
+
 <body>
-    
+
     <header>
-        <div class="Status">
+        <div id="Date" class="Status">
             DATUM
         </div>
-        <div class="Status">
-          ZEIT
+        <div id="Time" class="Status">
+            ZEIT
         </div>
-        <div class="Status">
-          TEMPERATUR
+        <div id="Temp" class="Status">
+            TEMPERATUR
         </div>
     </header>
 
     <main>
-        <button class="Value">
+        <button id="button1" class="Value">
             Luftdruck
         </button>
-        <button class="Value">
+        <button id="button2" class="Value">
             Luftfeuchtigkeit
         </button>
-        <button class="Value">
+        <button id="button3" class="Value">
             Verbrauch
         </button>
-        <button class="Value">
+        <button id="button4" class="Value">
             Reichweite
         </button>
 
@@ -39,79 +41,146 @@
 
     <footer>
         <div class="Music">
-           ♪♫ MUSIK ♪♫
+            ♪♫ MUSIK ♪♫
         </div>
         <div class="Music">
-           AKTUELLES LIED ♪
+            AKTUELLES LIED ♪
         </div>
         <div class="Music">
-           COVER
+            COVER
         </div>
     </footer>
 
     <script>
-      
-        function ClickLD() { 
-           document.getElementsByTagName("button")[0].remove();
-         
-         var x = document.createElement("div"); 
-         x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
-  
-         document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
-        }
+        "use strict";
 
-        function ClickLF() { 
-            document.getElementsByTagName("button")[1].remove();
-            var y = document.createElement("div"); 
-         y.innerHTML = "Aktuelle Luftfeuchtigkeit: 55%";
-  
-         document.getElementsByTagName("main")[0].appendChild(y); //wohin wird was kommen
-        }
+        fetch('http://192.168.0.85:5000/status').then(function (response) {
+            console.log("Response:", response)
+            response.text().then(function (text) {
+                console.log(text);
+            });
+        });
 
-        function ClickAV() { 
-         document.getElementsByTagName("button")[2].remove();
-         var z = document.createElement("div"); 
-         z.innerHTML = "Aktueller Verbrauch: 20,7 kWh/100 km";
-  
-         document.getElementsByTagName("main")[0].appendChild(z); //wohin wird was kommen
-        }
-        function ClickVR() { 
-         document.getElementsByTagName("button")[3].remove();
-         var w = document.createElement("div"); 
-         w.innerHTML = "Verbleibende Reichweite: 200km";
-  
-         document.getElementsByTagName("main")[0].appendChild(w); //wohin wird was kommen
-        }
-       function Back() {
-        var v = document.createElement("button");
-        v.innerHTML = "<<"
-        v.className = "Back"
 
-        document.getElementsByTagName("header")[0].appendChild(v);
-        }
+        function aktuelleUhrzeit() {
+            var heute = new Date();
+            var StundenZahl = heute.getHours(); var MinutenZahl = heute.getMinutes(); var SekundenZahl = heute.getSeconds();
+            var stunden, minuten, sekunden
+            stunden = StundenZahl + ":";
 
+            if (MinutenZahl < 10) { minuten = '0' + MinutenZahl + ":"; }
+            else { minuten = MinutenZahl + ":"; }
+            if (SekundenZahl < 10) { sekunden = '0' + SekundenZahl; }
+            else { sekunden = SekundenZahl; }
+
+            Time.innerHTML = stunden + minuten + sekunden + " Uhr";
+
+            window.setTimeout("aktuelleUhrzeit();", 1000);
+
+        }
+        window.onload = aktuelleUhrzeit;
+
+        function get_today() {
+            var heute = new Date();
+
+            var day = heute.getDate(); // Tag
+
+            // Monatsangabe startet bei 0!
+            var month = heute.getMonth() + 1; // Monat
+
+            var year = heute.getFullYear(); // Jahr
+            if (day < 10) {
+                day = '0' + day;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            heute = day + '.' + month + '.' + year;
+
+            return heute;
+        }
+        document.getElementById("Date").textContent = get_today();
+
+        function ClickLD() {
+
+            document.querySelector("main").innerHTML = "";
+
+            var x = document.createElement("div");
+            x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
+
+            document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
+        }
         document.getElementsByTagName("button")[0].addEventListener("click", ClickLD);
-        document.getElementsByTagName("button")[0].addEventListener("click", Back);
-        document.getElementsByTagName("button")[1].addEventListener("click", ClickLF);
-        document.getElementsByTagName("button")[1].addEventListener("click", Back);
-        document.getElementsByTagName("button")[2].addEventListener("click", ClickAV);
-        document.getElementsByTagName("button")[2].addEventListener("click", Back);
-        document.getElementsByTagName("button")[3].addEventListener("click", ClickVR);
-        document.getElementsByTagName("button")[3].addEventListener("click", Back);
-      
-           // function GoBack() {
-            //    document.getElementsByTagName("button")[0].remove();
-            // document.getElementsByTagName("div")[0].remove();
-            //}
-        //document.getElementsByTagName("button").addEventListener("click", GoBack);
-        var min = -1;
-        var max = 3;
-        var zahl1 = (Math.random() * (max - min)) + min;
-        var Temp = (Math.ceil(zahl1 * 20) / 20).toFixed(2);
-        console.log(zahl1.toFixed(2));
-        document.getElementsByClassName("Status")[2].innerText = zahl1.toFixed(2) + "°C";
 
-        setTimeout("document.location.reload();", 10000);
+
+        function ClickLF() {
+            document.querySelector("main").innerHTML = "";
+
+            var y = document.createElement("div");
+            y.innerHTML = "Aktuelle Luftfeuchtigkeit: 55%";
+
+            document.getElementsByTagName("main")[0].appendChild(y); //wohin wird was kommen
+        }
+        document.getElementsByTagName("button")[1].addEventListener("click", ClickLF);
+
+
+        function ClickAV() {
+            document.querySelector("main").innerHTML = "";
+
+            var z = document.createElement("div");
+            z.innerHTML = "Aktueller Verbrauch: 20,7 kWh/100 km";
+
+            document.getElementsByTagName("main")[0].appendChild(z); //wohin wird was kommen
+        }
+        document.getElementsByTagName("button")[2].addEventListener("click", ClickAV);
+
+
+        function ClickVR() {
+            document.querySelector("main").innerHTML = "";
+
+            var w = document.createElement("div");
+            w.innerHTML = "Verbleibende Reichweite: 200km";
+
+            document.getElementsByTagName("main")[0].appendChild(w); //wohin wird was kommen
+        }
+        //document.getElementsByTagName("button")[3].addEventListener("click", ClickVR);
+
+
+        for (var i = 1; i <= 3; i++) {
+            document.getElementById("button" + i).addEventListener("click", Back);
+        }
+
+
+
+        function Back() {
+            var v = document.createElement("button");
+            v.innerHTML = "<<"
+            v.className = "Back"
+
+            document.getElementsByTagName("header")[0].appendChild(v);
+        }
+
+
+        function ShowTemplate() {
+
+
+            document.getElementsByTagName("template")[0].appendChild(
+                document.querySelector("home").content.cloneNode(true));
+            console.log("HI");
+        }
+        document.getElementsByTagName("button")[3].addEventListener("click", ShowTemplate);
+
+        //setTimeout("document.location.reload();", 10000);
     </script>
+
+    <template class="home">
+
+        <div>
+            Test
+        </div>>
+
+
+    </template>
 </body>
+
 </html>
