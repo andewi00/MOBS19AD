@@ -16,16 +16,16 @@
             <img src="Home.png" width="53" height="50">
         </button>
         <div id="Date" class="Status">
-            DATUM
+            
         </div>
         <div id="Logo" class="Status">
             <img src="Logo.png" width="53" height="50" > <!-- Verhältnis 1,0575-->
         </div>
         <div id="Time" class="Status">
-            ZEIT
+            
         </div>
         <div id="Temp" class="Status">
-            TEMPERATUR
+            
         </div>
 
     </header>
@@ -44,11 +44,11 @@
             <button id="button4" class="Value">
                 Reichweite
             </button>
-        </div>
+           </div>
             </main>
 
     <footer>
-        <div class="Music">
+        <div id="Title" class="Music">
             ♪♫ MUSIK ♪♫
         </div>
         <div class="Music">
@@ -60,55 +60,16 @@
     </footer>
 
     <script>
-        //"use strict";
-
-        //fetch('http://192.168.0.85:5000/status').then(function (response) {
-        //    console.log("Response:", response)
-        //    response.text().then(function (text) {
-        //        console.log(text);
-        //    });
-        //});
-
-        //Aktuelle Uhrzeit
-        function aktuelleUhrzeit() {
-            var heute = new Date();
-            var StundenZahl = heute.getHours(); var MinutenZahl = heute.getMinutes(); var SekundenZahl = heute.getSeconds();
-            var stunden, minuten, sekunden
-            stunden = StundenZahl + ":";
-
-            if (MinutenZahl < 10) { minuten = '0' + MinutenZahl + ":"; }
-            else { minuten = MinutenZahl + ":"; }
-            if (SekundenZahl < 10) { sekunden = '0' + SekundenZahl; }
-            else { sekunden = SekundenZahl; }
-
-            Time.innerHTML = stunden + minuten + sekunden + " Uhr";
-
-            window.setTimeout("aktuelleUhrzeit();", 1000);
-
-        }
-        window.onload = aktuelleUhrzeit;
-
-        //Aktuelles Datum
-        function get_today() {
-            var heute = new Date();
-
-            var day = heute.getDate(); // Tag
-
-            // Monatsangabe startet bei 0!
-            var month = heute.getMonth() + 1; // Monat
-
-            var year = heute.getFullYear(); // Jahr
-            if (day < 10) {
-                day = '0' + day;
-            }
-            if (month < 10) {
-                month = '0' + month;
-            }
-            heute = day + '.' + month + '.' + year;
-
-            return heute;
-        }
-        document.getElementById("Date").textContent = get_today();
+        "use strict";
+         fetch('http://192.168.0.164:5000/status').then(function (response) {
+            response.text().then(function (text) {
+              // var e = document.getElementById("data").innerHTML = text;
+               let actualValues = text.split(/,|:/);
+               console.log(text);
+               // document.getElementById("Title").innerHTML = consumption[4];
+          
+       
+       
 
         //function ClickLD() {
 
@@ -168,11 +129,10 @@
 
         //Template Home
         function ShowTemplate() {
-            document.getElementById("aktuellerLuftdruck").style.display = "none";
+            document.getElementById("Pressure").style.display = "none";
             document.getElementById("Back").disabled = true; //Zurück kann nur einmal betätigt werden
             document.getElementsByTagName("main")[0].appendChild(
-                document.getElementsByClassName("home")[0].content.cloneNode(true));
-            console.log("HI");
+                document.getElementsByClassName("Home")[0].content.cloneNode(true));
         }
         document.getElementsByTagName("button")[0].addEventListener("click", ShowTemplate);
 
@@ -180,13 +140,59 @@
             document.getElementById("mainPage").style.display = "none";
             document.getElementsByTagName("main")[0].appendChild(
                 document.getElementsByClassName("LD")[0].content.cloneNode(true));
-            console.log("HI");
+            document.getElementById("Pressure").innerHTML += actualValues[5].substr(1, 6) + " bar";
         }
-        document.getElementsByClassName("Value")[0].addEventListener("click", ShowLD);
+                document.getElementsByClassName("Value")[0].addEventListener("click", ShowLD);
 
+                //Aktuelle Temperatur
+
+                document.getElementsByTagName("div")[3].innerHTML = actualValues[9].substr(1, 4) + " °C";
+                
+  }); 
+         });
+         //Aktuelle Uhrzeit
+        function currentTime() {
+            var Today = new Date();
+            var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
+            var Hours, Minutes, Seconds
+            Hours = hoursGet + ":";
+
+            if (minutesGet < 10) { Minutes = '0' + minutesGet + ":"; }
+            else { Minutes = minutesGet + ":"; }
+            if (secondsGet < 10) { Seconds = '0' + secondsGet; }
+            else { Seconds = secondsGet; }
+
+            Time.innerHTML = Hours + Minutes + Seconds + " Uhr";
+
+            window.setTimeout("currentTime();", 1000);
+
+        }
+        window.onload = currentTime;
+
+        //Aktuelles Datum
+        function getToday() {
+            var Today = new Date();
+
+            var Day = Today.getDate(); // Tag
+
+            // Monatsangabe startet bei 0!
+            var Month = Today.getMonth() + 1; // Monat
+
+            var Year = Today.getFullYear(); // Jahr
+            if (Day < 10) {
+                Day = '0' + day;
+            }
+            if (Month < 10) {
+                Month = '0' + month;
+            }
+            Today = Day + '.' + Month + '.' + Year;
+
+            return Today;
+        }
+        document.getElementById("Date").textContent = getToday();
     </script>
 
-    <template class="home">
+    <template class="Home">
             <button class="Value">
                 Luftdruck
             </button>
@@ -202,8 +208,8 @@
     </template>
 
     <template class="LD">
-            <div id="aktuellerLuftdruck">
-                "Aktueller Luftdruck: 2,6 bar"
+            <div id="Pressure">
+                Aktueller Luftdruck: 
             </div>
     </template>
 
