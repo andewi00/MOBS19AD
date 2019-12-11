@@ -12,8 +12,14 @@
 <body>
 
     <header>
+        <button id="Back" class="Status">
+            <img src="Home.png" width="53" height="50">
+        </button>
         <div id="Date" class="Status">
             DATUM
+        </div>
+        <div id="Logo" class="Status">
+            <img src="Logo.png" width="53" height="50" > <!-- Verhältnis 1,0575-->
         </div>
         <div id="Time" class="Status">
             ZEIT
@@ -21,23 +27,25 @@
         <div id="Temp" class="Status">
             TEMPERATUR
         </div>
+
     </header>
 
     <main>
-        <button id="button1" class="Value">
-            Luftdruck
-        </button>
-        <button id="button2" class="Value">
-            Luftfeuchtigkeit
-        </button>
-        <button id="button3" class="Value">
-            Verbrauch
-        </button>
-        <button id="button4" class="Value">
-            Reichweite
-        </button>
-
-    </main>
+        <div id="mainPage">
+            <button id="button1" class="Value">
+                Luftdruck
+            </button>
+            <button id="button2" class="Value">
+                Luftfeuchtigkeit
+            </button>
+            <button id="button3" class="Value">
+                Verbrauch
+            </button>
+            <button id="button4" class="Value">
+                Reichweite
+            </button>
+        </div>
+            </main>
 
     <footer>
         <div class="Music">
@@ -52,16 +60,16 @@
     </footer>
 
     <script>
-        "use strict";
+        //"use strict";
 
-        fetch('http://192.168.0.85:5000/status').then(function (response) {
-            console.log("Response:", response)
-            response.text().then(function (text) {
-                console.log(text);
-            });
-        });
+        //fetch('http://192.168.0.85:5000/status').then(function (response) {
+        //    console.log("Response:", response)
+        //    response.text().then(function (text) {
+        //        console.log(text);
+        //    });
+        //});
 
-
+        //Aktuelle Uhrzeit
         function aktuelleUhrzeit() {
             var heute = new Date();
             var StundenZahl = heute.getHours(); var MinutenZahl = heute.getMinutes(); var SekundenZahl = heute.getSeconds();
@@ -80,6 +88,7 @@
         }
         window.onload = aktuelleUhrzeit;
 
+        //Aktuelles Datum
         function get_today() {
             var heute = new Date();
 
@@ -101,16 +110,16 @@
         }
         document.getElementById("Date").textContent = get_today();
 
-        function ClickLD() {
+        //function ClickLD() {
 
-            document.querySelector("main").innerHTML = "";
+        //    document.querySelector("main").innerHTML = "";
 
-            var x = document.createElement("div");
-            x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
+        //    var x = document.createElement("div");
+        //    x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
 
-            document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
-        }
-        document.getElementsByTagName("button")[0].addEventListener("click", ClickLD);
+        //    document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
+        //}
+        //document.getElementsByTagName("button")[1].addEventListener("click", ClickLD);
 
 
         function ClickLF() {
@@ -121,7 +130,7 @@
 
             document.getElementsByTagName("main")[0].appendChild(y); //wohin wird was kommen
         }
-        document.getElementsByTagName("button")[1].addEventListener("click", ClickLF);
+        document.getElementsByTagName("button")[2].addEventListener("click", ClickLF);
 
 
         function ClickAV() {
@@ -132,7 +141,7 @@
 
             document.getElementsByTagName("main")[0].appendChild(z); //wohin wird was kommen
         }
-        document.getElementsByTagName("button")[2].addEventListener("click", ClickAV);
+        document.getElementsByTagName("button")[3].addEventListener("click", ClickAV);
 
 
         function ClickVR() {
@@ -143,44 +152,60 @@
 
             document.getElementsByTagName("main")[0].appendChild(w); //wohin wird was kommen
         }
-        //document.getElementsByTagName("button")[3].addEventListener("click", ClickVR);
+        document.getElementsByTagName("button")[4].addEventListener("click", ClickVR);
 
+        ////Zurück Button Erstellen
+        //for (var i = 1; i <= 4; i++) {
+        //    document.getElementById("button" + i).addEventListener("click", Back);
+        //}
+        //function Back() {
+        //    var v = document.createElement("button");
+        //    v.innerHTML = "<<"
+        //    v.className = "Back"
 
-        for (var i = 1; i <= 3; i++) {
-            document.getElementById("button" + i).addEventListener("click", Back);
-        }
+        //    document.getElementsByTagName("header")[0].appendChild(v);
+        //}
 
-
-
-        function Back() {
-            var v = document.createElement("button");
-            v.innerHTML = "<<"
-            v.className = "Back"
-
-            document.getElementsByTagName("header")[0].appendChild(v);
-        }
-
-
+        //Template Home
         function ShowTemplate() {
-
-
-            document.getElementsByTagName("template")[0].appendChild(
-                document.querySelector("home").content.cloneNode(true));
+            document.getElementById("aktuellerLuftdruck").style.display = "none";
+            document.getElementById("Back").disabled = true; //Zurück kann nur einmal betätigt werden
+            document.getElementsByTagName("main")[0].appendChild(
+                document.getElementsByClassName("home")[0].content.cloneNode(true));
             console.log("HI");
         }
-        document.getElementsByTagName("button")[3].addEventListener("click", ShowTemplate);
+        document.getElementsByTagName("button")[0].addEventListener("click", ShowTemplate);
 
-        //setTimeout("document.location.reload();", 10000);
+        function ShowLD() {
+            document.getElementById("mainPage").style.display = "none";
+            document.getElementsByTagName("main")[0].appendChild(
+                document.getElementsByClassName("LD")[0].content.cloneNode(true));
+            console.log("HI");
+        }
+        document.getElementsByClassName("Value")[0].addEventListener("click", ShowLD);
+
     </script>
 
     <template class="home">
-
-        <div>
-            Test
-        </div>>
-
-
+            <button class="Value">
+                Luftdruck
+            </button>
+            <button class="Value">
+                Luftfeuchtigkeit
+            </button>
+            <button class="Value">
+                Verbrauch
+            </button>
+            <button class="Value">
+                Reichweite
+            </button>
     </template>
-</body>
 
+    <template class="LD">
+            <div id="aktuellerLuftdruck">
+                "Aktueller Luftdruck: 2,6 bar"
+            </div>
+    </template>
+
+</body>
 </html>

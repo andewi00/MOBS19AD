@@ -8,66 +8,89 @@
     grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 10% auto 10%;
     height: 100vh;
-    background: url('Tesla S.jpg');
-    background-size: 90% 100%; 
+    /* background: url('Tesla S.jpg');
+    background-size: 90% 100%; */
 }
 
 header {
     grid-area: header;
     display: flex;
     justify-content: space-between;
+    background: linear-gradient(180deg, #262626, #727272);
 }
 
 
 div.Status {
-    background: rgba(169, 167, 167, 0.1);
-    padding: 20px;
-    margin: 10px;
-    font-family: "Arial";
-    font-size: 0.5em;
+    margin: auto;
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #b2aeae;
     display: flex;
     justify-content: space-between;
 }
+#Logo {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    
+}
 
+button.Status {
+    padding-bottom: 10px;
+    padding-top: 2px;
+    border: none;
+    margin: 10px;
+    display: flex;
+    background-color:rgba(103, 95, 95, 0.00);
+    justify-content: space-between;
+}
+    button.Status:hover {
+        border-style: solid;
+        border-color: #7d7979;
+        cursor:pointer;
+        border-radius: 0.5em;
+    }
 main {
     grid-area: main;
     padding: 0px;
-   
-   
-    border-bottom: solid;
-    border-bottom-color: dimgrey;
-    border-top: solid;
-    border-top-color: dimgrey;
-  
 }
 
 button.Value {
     display: inline;
-    background-color: grey;
-    border-style: solid;
-    border-color: darkgrey;
+    border: solid;
+    border-color: #757575;
+    border-radius:0.5em;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 30px;
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #dbd4d4;
+    justify-content: space-between;
+    background-color: #757575;
 }
-
-button.Back{
-    color: #ff6a00;
-    float: left;
-}
-
+    button.Value:hover {
+        color: #1f1e1e;
+        cursor: pointer;
+    }
 
 footer {
     grid-area: footer;
-    /*background: #ff8086;*/
-  
     display: flex;
     justify-content: space-between;
+    background: linear-gradient(0deg, #262626, #727272);
+    padding-bottom: 10px;
+    padding-top: 20px;
+    margin: 3px;
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #b2aeae;
 }
 
 div.Music {
-    background: rgba(169, 167, 167, 0.1);
-    padding: 20px;
-    margin: 10px;
-    font-family: "Arial";
-    font-size: 0.5em;
+    margin: auto;
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #b2aeae;
     display: flex;
     justify-content: space-between;
 }
