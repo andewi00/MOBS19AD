@@ -16,141 +16,201 @@
             <img src="Home.png" width="53" height="50">
         </button>
         <div id="Date" class="Status">
-            
+
         </div>
         <div id="Logo" class="Status">
-            <img src="Logo.png" width="53" height="50" > <!-- Verhältnis 1,0575-->
+            <img src="Logo.png" width="53" height="50"> <!-- Proportion 1,0575-->
         </div>
         <div id="Time" class="Status">
-            
+
         </div>
         <div id="Temp" class="Status">
-            
+
         </div>
 
     </header>
 
     <main>
-        <div id="mainPage">
-            <button id="button1" class="Value">
-                Luftdruck
-            </button>
-            <button id="button2" class="Value">
-                Luftfeuchtigkeit
-            </button>
-            <button id="button3" class="Value">
-                Verbrauch
-            </button>
-            <button id="button4" class="Value">
-                Reichweite
-            </button>
-           </div>
-            </main>
+        <button id="button0" class="Value">
+            <img src="Schloss zu.png" width="53" height="50" id="locked">
+            <img src="Schloss auf.png" width="53" height="50" id="unlocked">
+        </button>
+        <button id="button1" class="Value">
+            Luftdruck:
+        </button>
+        <button id="button2" class="Value">
+            Luftfeuchtigkeit:
+        </button>
+        <button id="button3" class="Value">
+            Verbrauch:
+        </button>
+        <button id="button4" class="Value">
+            Geschwindigkeit:
+        </button>
+
+    </main>
 
     <footer>
         <div id="Title" class="Music">
             ♪♫ MUSIK ♪♫
         </div>
-        <div class="Music">
-            AKTUELLES LIED ♪
+        <div class="Music" id="musicPlayer">
+            <audio id="audioControls"
+                   controls
+                   src="Wohin Du Gehst.mp3"
+                   type="audio/mp3"></audio>
         </div>
-        <div class="Music">
+        <div class="Music" id="musicCover">
             COVER
         </div>
     </footer>
 
     <script>
-        "use strict";
-         fetch('http://192.168.0.164:5000/status').then(function (response) {
+
+        //Get Python Service Data
+        document.getElementById("locked").style.display = "block";
+        document.getElementById("unlocked").style.display = "none";
+        fetch('http://192.168.0.164:5000/status').then(function (response) {
             response.text().then(function (text) {
-              // var e = document.getElementById("data").innerHTML = text;
-               let actualValues = text.split(/,|:/);
-               console.log(text);
-               // document.getElementById("Title").innerHTML = consumption[4];
-          
-       
-       
+                // var e = document.getElementById("data").innerHTML = text;
+                let actualValues = text.split(/,|:/);
+                console.log(text);
 
-        //function ClickLD() {
+                //function Music() {
+                //    fetch('http://192.168.0.164:5000/music').then(function (response) {
+                //        response.text().then(function (text) {
 
-        //    document.querySelector("main").innerHTML = "";
+                //            console.log("Test Music");
 
-        //    var x = document.createElement("div");
-        //    x.innerHTML = "Aktueller Luftdruck: 2,6 bar";
+                //        });
+                //    });
 
-        //    document.getElementsByTagName("main")[0].appendChild(x); //wohin wird was kommen
-        //}
-        //document.getElementsByTagName("button")[1].addEventListener("click", ClickLD);
+                //}
+                //document.getElementById("Title").addEventListener("click", Music);
 
 
-        function ClickLF() {
-            document.querySelector("main").innerHTML = "";
+                //Template HomeScreen
+                function ShowTemplate() {
+                    document.querySelector("main").innerHTML = "";
+                    // document.getElementById("Back").disabled = true; //Zurück kann nur einmal betätigt werden
+                    document.getElementsByTagName("main")[0].appendChild(
+                        document.getElementsByClassName("Home")[0].content.cloneNode(true));
+                    document.getElementById("button1").innerHTML += actualValues[5].substr(1, 6) + " kPa";
 
-            var y = document.createElement("div");
-            y.innerHTML = "Aktuelle Luftfeuchtigkeit: 55%";
+                    //Consumption
+                    document.getElementById("button3").innerHTML += actualValues[1].substr(1, 6) + " Liter";
 
-            document.getElementsByTagName("main")[0].appendChild(y); //wohin wird was kommen
-        }
-        document.getElementsByTagName("button")[2].addEventListener("click", ClickLF);
+                    //Current Speed
+                    document.getElementById("button4").innerHTML += actualValues[7].substr(1, 6) + " km/h";
+
+                    document.getElementById("button1").addEventListener("click", ShowPressure);
+
+                    if (document.getElementById("button0").style.display = "block") {
+                        document.getElementById("button0").addEventListener("click", OpenLock);
+                    }
+                    else if (document.getElementById("button0.5").style.display = "block") {
+                        document.getElementById("button0.5").addEventListener("click", CloseLock);
+                    }
+
+                }
+                document.getElementById("Back").addEventListener("click", ShowTemplate);
 
 
-        function ClickAV() {
-            document.querySelector("main").innerHTML = "";
+                //Template Pressure
+                function ShowPressure() {
+                    document.querySelector("main").innerHTML = "";
+                    document.getElementsByTagName("main")[0].appendChild(
+                        document.getElementsByClassName("Pr")[0].content.cloneNode(true));
+                    document.getElementById("frontLeft").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
+                    document.getElementById("frontRight").innerHTML = Math.round(actualValues[5].substr(1, 3) * 0.99) + " kPa";
+                    document.getElementById("backLeft").innerHTML = actualValues[5].substr(1, 6) + " kPa";
+                    document.getElementById("backRight").innerHTML = actualValues[5].substr(1, 6) + " kPa";
+                }
+                document.getElementById("button1").addEventListener("click", ShowPressure);
 
-            var z = document.createElement("div");
-            z.innerHTML = "Aktueller Verbrauch: 20,7 kWh/100 km";
 
-            document.getElementsByTagName("main")[0].appendChild(z); //wohin wird was kommen
-        }
-        document.getElementsByTagName("button")[3].addEventListener("click", ClickAV);
+                //Current Temperature
+                document.getElementById("Temp").innerHTML = actualValues[9].substr(1, 4) + "°C / " + actualValues[3].substr(1, 5) + "%";
+
+                //Current Pressure
+                document.getElementById("button1").innerHTML += actualValues[5].substr(1, 6) + " kPa";
+
+                //Current Humidity
+                document.getElementById("button2").innerHTML += actualValues[3].substr(1, 6) + " %";
+
+                //Consumption
+                document.getElementById("button3").innerHTML += actualValues[1].substr(1, 6) + " Liter";
+
+                //Current Speed
+                document.getElementById("button4").innerHTML += actualValues[7].substr(1, 6) + " km/h";
 
 
-        function ClickVR() {
-            document.querySelector("main").innerHTML = "";
+                //Fuction Lock
+                //function OpenLock() {
 
-            var w = document.createElement("div");
-            w.innerHTML = "Verbleibende Reichweite: 200km";
+                //    document.getElementById("button0.5").style.display = "block";
+                //    document.getElementById("button0").style.display = "none";
+                //}
+                //document.getElementById("button0").addEventListener("click", OpenLock);
 
-            document.getElementsByTagName("main")[0].appendChild(w); //wohin wird was kommen
-        }
-        document.getElementsByTagName("button")[4].addEventListener("click", ClickVR);
 
-        ////Zurück Button Erstellen
-        //for (var i = 1; i <= 4; i++) {
-        //    document.getElementById("button" + i).addEventListener("click", Back);
-        //}
-        //function Back() {
-        //    var v = document.createElement("button");
-        //    v.innerHTML = "<<"
-        //    v.className = "Back"
+                //function CloseLock() {
+                //    document.getElementById("button0.5").style.display = "none";
+                //    document.getElementById("button0").style.display = "block";
 
-        //    document.getElementsByTagName("header")[0].appendChild(v);
-        //}
+                //}
+                //document.getElementById("button0.5").addEventListener("click", CloseLock);
 
-        //Template Home
-        function ShowTemplate() {
-            document.getElementById("Pressure").style.display = "none";
-            document.getElementById("Back").disabled = true; //Zurück kann nur einmal betätigt werden
-            document.getElementsByTagName("main")[0].appendChild(
-                document.getElementsByClassName("Home")[0].content.cloneNode(true));
-        }
-        document.getElementsByTagName("button")[0].addEventListener("click", ShowTemplate);
+                //var hidden = false;
 
-        function ShowLD() {
-            document.getElementById("mainPage").style.display = "none";
-            document.getElementsByTagName("main")[0].appendChild(
-                document.getElementsByClassName("LD")[0].content.cloneNode(true));
-            document.getElementById("Pressure").innerHTML += actualValues[5].substr(1, 6) + " bar";
-        }
-                document.getElementsByClassName("Value")[0].addEventListener("click", ShowLD);
+                //function hideOrShow()
+                //{
+                //  if(!hidden)
+                //  {
+                //    document.getElementById("myimg").style.display = "none";
+                //  }
+                //  else
+                //  {
+                //    document.getElementById("myimg").style.display = "block";
+                //  }
+                //  hidden = !hidden;
+                //}
+                //Open and close the lock
+                function Lock() {
+                    if (fetch('http://192.168.0.164:5000/action/unlock').then(function (response) {
+                        response.text().then(function (text) {
 
-                //Aktuelle Temperatur
+                        });
+                    })) {
+                        document.getElementById("locked").style.display = "none";
+                        document.getElementById("unlocked").style.display = "block"; document.getElementById("locked").style.display = "block"
 
-                document.getElementsByTagName("div")[3].innerHTML = actualValues[9].substr(1, 4) + " °C";
-                
-  }); 
-         });
-         //Aktuelle Uhrzeit
+                    }
+                    else { };
+
+                    if (document.getElementById("unlocked").style.display = "block") {
+                        fetch('http://192.168.0.164:5000/action/lock').then(function (response) {
+                            response.text().then(function (text) {
+                                document.getElementById("unlocked").style.display = "none";
+                                document.getElementById("locked").style.display = "block";
+                            });
+                        });
+                    }
+                    else { };
+                }
+                document.getElementById("button0").addEventListener("click", Lock);
+
+
+
+
+
+            });
+        });
+
+
+
+
+        //Current Time
         function currentTime() {
             var Today = new Date();
             var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
@@ -169,16 +229,16 @@
         }
         window.onload = currentTime;
 
-        //Aktuelles Datum
+        //Current Date
         function getToday() {
             var Today = new Date();
 
-            var Day = Today.getDate(); // Tag
+            var Day = Today.getDate(); // Day
 
-            // Monatsangabe startet bei 0!
-            var Month = Today.getMonth() + 1; // Monat
+            // Months start at 0!
+            var Month = Today.getMonth() + 1; // Month
 
-            var Year = Today.getFullYear(); // Jahr
+            var Year = Today.getFullYear(); // Year
             if (Day < 10) {
                 Day = '0' + day;
             }
@@ -193,24 +253,35 @@
     </script>
 
     <template class="Home">
-            <button class="Value">
-                Luftdruck
+        <main>
+            <button id="button0" class="Value">
+                <img src="Schloss zu.png" width="53" height="50">
             </button>
-            <button class="Value">
-                Luftfeuchtigkeit
+            <button id="button1" class="Value">
+                Luftdruck:
             </button>
-            <button class="Value">
-                Verbrauch
+            <button id="button2" class="Value">
+                Luftfeuchtigkeit:
             </button>
-            <button class="Value">
-                Reichweite
+            <button id="button3" class="Value">
+                Verbrauch:
             </button>
+            <button id="button4" class="Value">
+                Geschwindigkeit:
+            </button>
+
+        </main>
+
     </template>
 
-    <template class="LD">
-            <div id="Pressure">
-                Aktueller Luftdruck: 
-            </div>
+    <template class="Pr">
+        <div id="templatePressure">
+            <div id="frontLeft" class="carPressure"> vorne links</div>
+            <div><img src="Luftdruck.png" id="Car"></div>
+            <div id="frontRight" class="carPressure"> vorne rechts</div>
+            <div id="backLeft" class="carPressure"> hinten Links</div>
+            <div id="backRight" class="carPressure"> hinten rechts</div>
+        </div>
     </template>
 
 </body>

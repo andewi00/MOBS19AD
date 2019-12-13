@@ -17,8 +17,24 @@ header {
     display: flex;
     justify-content: space-between;
     background: linear-gradient(180deg, #262626, #727272);
+    display: grid;
+    grid-template-columns: 200px 200px 200px 300px 250px;
+    grid-template-rows: auto;
+    grid-gap: 40px;
+    justify-content: center;
 }
 
+#Back {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+}
+
+#Temp {
+    grid-column: 5;
+    grid-row: 1;
+    justify-self: end;
+}
 
 div.Status {
     margin: auto;
@@ -28,10 +44,10 @@ div.Status {
     display: flex;
     justify-content: space-between;
 }
+
 #Logo {
     padding-bottom: 10px;
     padding-top: 10px;
-    
 }
 
 button.Status {
@@ -40,12 +56,13 @@ button.Status {
     border: none;
     margin: 10px;
     display: flex;
-    background-color:rgba(103, 95, 95, 0.00);
+    background-color: rgba(103, 95, 95, 0.00);
     justify-content: space-between;
-    }
-    button.Status:hover {
-        outline:0; /*Kein Rahmen nach Klick*/
-        }
+}
+
+button:hover {
+    outline: 0; /*Kein Rahmen nach Klick*/
+}
 
 main {
     grid-area: main;
@@ -56,7 +73,7 @@ button.Value {
     display: inline;
     border: solid;
     border-color: #757575;
-    border-radius:0.5em;
+    border-radius: 0.5em;
     padding-bottom: 10px;
     padding-top: 10px;
     margin: 30px;
@@ -66,6 +83,7 @@ button.Value {
     justify-content: space-between;
     background-color: #757575;
 }
+
     button.Value:hover {
         outline: 0; /*Kein Rahmen nach Klick*/
     }
@@ -76,17 +94,53 @@ button.Value {
     vertical-align: middle;
 }
 
+div.carPressure {
+    border: solid;
+    border-color: #757575;
+    border-radius: 0.5em;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0px;
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #dbd4d4;
+    background-color: #757575;
+}
+
 footer {
     grid-area: footer;
     display: flex;
     justify-content: space-between;
     background: linear-gradient(0deg, #262626, #727272);
     padding-bottom: 10px;
-    padding-top: 20px;
-    margin: 3px;
+    padding-top: 5px;
     font-family: 'Century Gothic';
     font-size: 1em;
     color: #b2aeae;
+    display: grid;
+    grid-template-columns: 250px 250px 250px;
+    grid-template-rows: auto;
+    grid-gap: 150px;
+    justify-content: center;
+}
+
+#Title {
+    grid-column: 1;
+    justify-self: center;
+    align-self: end;
+}
+
+#music.Player {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+#musicCover {
+    grid-column: 3;
+    justify-self: center;
+    align-self: center;
 }
 
 div.Music {
@@ -96,4 +150,49 @@ div.Music {
     color: #b2aeae;
     display: flex;
     justify-content: space-between;
+}
+
+#templatePressure {
+    display: grid;
+    grid-template-columns: 200px 290px 200px;
+    grid-template-rows: 150px 150px 150px;
+    grid-gap: 20px;
+    justify-content: center;
+}
+
+#frontLeft {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+}
+
+#frontRight {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: baseline;
+    align-self: center;
+}
+
+#backLeft {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: end;
+    align-self: center;
+}
+
+#backRight {
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: baseline;
+    align-self: center;
+}
+
+#Car {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: end;
+    width: auto;
+    height: 550px;
 }
