@@ -8,15 +8,15 @@
     grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 10% auto 10%;
     height: 100vh;
-    /* background: url('Tesla S.jpg');
-    background-size: 90% 100%; */
+    /* Background: url('Tesla S.jpg');
+    Background-size: 90% 100%; */
 }
 
 header {
     grid-area: header;
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(180deg, #262626, #727272);
+    Background: linear-gradient(180deg, #262626, #727272);
     display: grid;
     grid-template-columns: 200px 200px 200px 300px 250px;
     grid-template-rows: auto;
@@ -50,13 +50,24 @@ div.Status {
     padding-top: 10px;
 }
 
+main {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-gap: 20px;
+    justify-content: center;
+    grid-area: main;
+    padding: 0px;
+    Background-color: #b4b0b0;
+}
+
 button.Status {
     padding-bottom: 10px;
     padding-top: 2px;
     border: none;
     margin: 10px;
     display: flex;
-    background-color: rgba(103, 95, 95, 0.00);
+    Background-color: rgba(103, 95, 95, 0.00);
     justify-content: space-between;
 }
 
@@ -64,9 +75,69 @@ button:hover {
     outline: 0; /*Kein Rahmen nach Klick*/
 }
 
-main {
-    grid-area: main;
-    padding: 0px;
+#button0 {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: baseline;
+    align-self: center;
+}
+
+#button1 {
+    padding: 10px;
+    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 5;
+    grid-column-end: 8;
+    grid-row: 6;
+    justify-self: center;
+    align-self: center;
+}
+
+#button1 {
+    padding: 10px;
+    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 5;
+    grid-column-end: 8;
+    grid-row: 6;
+    justify-self: baseline;
+    align-self: center;
+}
+
+#button3 {
+    padding: 10px;
+    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 6;
+    grid-column-end: 9;
+    grid-row: 4;
+    justify-self: baseline;
+    align-self: center;
+    Background-color: #b4b0b0;
+    border-color: #b4b0b0;
+    color: #656566;
+    font-weight: bold;
+}
+
+#button4 {
+    padding: 10px;
+    grid-column: 1 / span 4; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row: 1;
+    justify-self: baseline;
+    align-self: center;
+    Background-color: #b4b0b0;
+    border-color: #b4b0b0;
+    color: #656566;
+    font-weight: bold;
+}
+
+#button5 {
+    padding: 10px;
+    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row: 1;
+    justify-self: baseline;
+    align-self: center;
 }
 
 button.Value {
@@ -81,7 +152,7 @@ button.Value {
     font-size: 1em;
     color: #dbd4d4;
     justify-content: space-between;
-    background-color: #757575;
+    Background-color: #757575;
 }
 
     button.Value:hover {
@@ -95,23 +166,19 @@ button.Value {
 }
 
 div.carPressure {
-    border: solid;
-    border-color: #757575;
-    border-radius: 0.5em;
     padding-bottom: 5px;
     padding-top: 5px;
-    margin: 0px;
     font-family: 'Century Gothic';
     font-size: 1em;
-    color: #dbd4d4;
-    background-color: #757575;
+    color: #656566;
+    font-weight: bold;
 }
 
 footer {
     grid-area: footer;
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(0deg, #262626, #727272);
+    Background: linear-gradient(0deg, #262626, #727272);
     padding-bottom: 10px;
     padding-top: 5px;
     font-family: 'Century Gothic';
@@ -154,10 +221,15 @@ div.Music {
 
 #templatePressure {
     display: grid;
-    grid-template-columns: 200px 290px 200px;
-    grid-template-rows: 150px 150px 150px;
+    grid-template-columns: 250px 340px 250px;
+    grid-template-rows: 200px 200px 200px;
     grid-gap: 20px;
     justify-content: center;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center;
+    align-self: baseline;
+    padding: 15px;
 }
 
 #frontLeft {
@@ -194,5 +266,68 @@ div.Music {
     justify-self: end;
     align-self: end;
     width: auto;
-    height: 550px;
+    height: 700px;
+}
+
+.rangeslider {
+    width: 50%;
+}
+
+.myslider {
+    -webkit-appearance: none;
+    Background: #757575;
+    width: 50%;
+    height: 40px;
+    opacity: 2;
+    border-radius: 10px;
+}
+
+
+    .myslider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        cursor: auto;
+        Background: #262626;
+        width: 5%;
+        height: 60px;
+        border-radius: 10px;
+    }
+
+
+    .myslider:hover {
+        opacity: 1;
+    }
+
+h1 {
+    font-family: 'Century Gothic';
+    font-size: 1.5em;
+    color: #656566;
+}
+
+p {
+    font-family: 'Century Gothic';
+    font-size: 1em;
+    color: #656566;
+    font-weight: bold;
+}
+
+#conditioningRange {
+    padding: 100px;
+    grid-column: 1 / span 4; /* starts at column pos 1, spans 4 column */
+    grid-row: 1 / span 5;
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 6;
+}
+
+#teslaHome {
+    width: 1200px;
+    height: auto;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+div.teslaHome {
+    grid-column: 1;
+    grid-row: 2;
 }

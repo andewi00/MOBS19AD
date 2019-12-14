@@ -12,7 +12,7 @@ body {
 
 header {
     grid-area: header;
-    background: #fdff80;
+    Background: #fdff80;
     padding: 20px;
     display: flex; 
     justify-content: center; 
@@ -22,7 +22,7 @@ header {
 
 main {
     grid-area: main;
-    background: #9eff80;
+    Background: #9eff80;
     padding: 0px;
     border-width: 5px;
     border-style: solid;
@@ -37,20 +37,20 @@ main {
 
 footer {
     grid-area: footer;
-    background: #ff8086;
+    Background: #ff8086;
     padding: 20px;
 
 }
 
 button.item {
-    background: #f480ff;
+    Background: #f480ff;
     padding: 20px;
     margin: 20px;
     display: inline-block;
  }
 
 nav li {
-    background: #ffa880;
+    Background: #ffa880;
     padding: 20px;
     margin: 20px;
     border-width: 5px;
