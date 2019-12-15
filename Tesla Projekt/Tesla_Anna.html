@@ -13,15 +13,12 @@
         <button id="buttonHome" class="headerInformation">
             <img src="Home.png" width="53" height="50">
         </button>
-        <div id="date" class="headerInformation">
-        </div>
+        <div id="date" class="headerInformation"></div>
         <div id="logo" class="headerInformation">
             <img src="Logo.png" width="85" height="80"> <!-- Proportion 1,0575-->
         </div>
-        <div id="time" class="headerInformation">
-        </div>
-        <div id="temperatur" class="headerInformation">
-        </div>
+        <div id="time" class="headerInformation"></div>
+        <div id="temperature" class="headerInformation"></div>
     </header>
 
     <main>
@@ -29,36 +26,30 @@
             <img src="lock.png" width="53" height="50" id="locked">
             <img src="unlock.png" width="53" height="50" id="unlocked">
         </button>
-        <button id="buttonPressure" class="statusInformation">
-        </button>
+        <button id="buttonPressure" class="statusInformation"></button>
         <div class="teslaHome"> <img src="Tesla.png" id="teslaHome" /></div>
-        <button id="buttonConsumption" class="statusInformation">
-        </button>
-        <button id="buttonSpeed" class="statusInformation">
-        </button>
-        <button id="buttonAir" class="statusInformation">
-            Klimaanlage
-        </button>
+        <button id="buttonConsumption" class="statusInformation"></button>
+        <button id="buttonSpeed" class="statusInformation"></button>
+        <button id="buttonAir" class="statusInformation">Klimaanlage</button>
     </main>
 
     <footer>
-        <div id="Title" class="Music">
-            ♪♫ MUSIK ♪♫
-        </div>
-        <div id="musicPlayer" class="Music">
+        <div id="title" class="music">♪♫ MUSIK ♪♫</div>
+        <div id="musicPlayer" class="music">
             <audio id="audioControls"
                    controls
                    src="Wohin Du Gehst.mp3"
                    type="audio/mp3"></audio>
         </div>
-        <div id="musicCover" class="Music">
-            COVER
-        </div>
+        <div id="musicCover" class="music">COVER</div>
     </footer>
 
     <script>
+
         var flagHome = true;
         var flagPressure = false;
+        var flagAir = false;
+
         //Lock and unlock start
         var carLocked = false;
         if (carLocked == true) {
@@ -69,6 +60,7 @@
             document.getElementById("unlocked").style.display = "block";
         }
 
+        //
         window.setInterval(function () {
 
             //Get Python Service Data
@@ -77,23 +69,14 @@
                     let actualValues = text.split(/,|:/);
 
                     if (flagHome == true) {
-
                         console.log(text);
-                        //Current Pressure
-                        document.getElementById("buttonPressure").innerHTML = "Luftdruck: " + actualValues[5].substr(1, 6) + " kPa";;
-
-                        //Consumption
+                        document.getElementById("buttonPressure").innerHTML = "Luftdruck";
                         document.getElementById("buttonConsumption").innerHTML = "Verbrauch: " + actualValues[1].substr(1, 5) + " Liter";
-
-                        //Current Speed
                         document.getElementById("buttonSpeed").innerHTML = "Geschwindigkeit: " + actualValues[7].substr(1, 6) + " km/h";
                     }
-
-                    //Temperatur Humidity
-                    document.getElementById("temperatur").innerHTML = actualValues[9].substr(1, 4) + "°C / " + actualValues[3].substr(1, 5) + "%";
+                    document.getElementById("temperature").innerHTML = actualValues[9].substr(1, 4) + "°C / " + actualValues[3].substr(1, 5) + "%";
 
                     if (flagPressure == true) {
-
                         document.getElementById("frontLeft").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
                         document.getElementById("frontRight").innerHTML = Math.round(actualValues[5].substr(1, 3) * 0.99) + " kPa";
                         document.getElementById("backLeft").innerHTML = actualValues[5].substr(1, 6) + " kPa";
@@ -104,9 +87,8 @@
             document.getElementById("buttonHome").addEventListener("click", ShowTemplate);
 
             if (flagHome == true) {
-                document.getElementById("buttonPressure").addEventListener("click", ShowPressure);
-                //Air Conditioning
-                document.getElementById("buttonAir").addEventListener("click", slider);
+                document.getElementById("buttonPressure").addEventListener("click", showPressure);
+                document.getElementById("buttonAir").addEventListener("click", templateSlider);
                 //Lock and unlock the car
                 var carLocked = false;
                 if (carLocked == true) {
@@ -118,7 +100,7 @@
                 }
                 document.getElementById("buttonLock").addEventListener("click", lockUnlock);
             }
-        }, 2000
+        }, 1000
         );
 
         //Template BackScreen
@@ -127,15 +109,39 @@
             document.getElementsByTagName("main")[0].appendChild(document.getElementsByClassName("templateHome")[0].content.cloneNode(true));//Clone and open template
             flagPressure = false;
             flagHome = true;
+            flagAir = false;
         }
 
         //Template Pressure
-        function ShowPressure() {
+        function showPressure() {
             document.querySelector("main").innerHTML = "";
             document.getElementsByTagName("main")[0].appendChild(
                 document.getElementsByClassName("templatePressure")[0].content.cloneNode(true));
             flagPressure = true;
             flagHome = false;
+            flagAir = false;
+        }
+
+        //Template Air
+        function templateSlider() {
+            document.querySelector("main").innerHTML = "";
+            document.getElementsByTagName("main")[0].appendChild(
+                document.getElementsByClassName("templateAir")[0].content.cloneNode(true));
+            flagPressure = false;
+            flagHome = false;
+            flagAir = true;
+            if (flagAir == true) {
+                showSlider();
+            }
+        }
+
+        function showSlider() {
+            var rangeslider = document.getElementById("sliderRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = rangeslider.value;
+            rangeslider.oninput = function () {
+                output.innerHTML = this.value;
+            }
         }
 
         //Lock and unlock the car
@@ -161,20 +167,6 @@
             }
         }
         document.getElementById("buttonLock").addEventListener("click", lockUnlock);
-
-        //Creation and opening of air conditioning template
-        function slider() {
-            document.querySelector("main").innerHTML = "";
-            document.getElementsByTagName("main")[0].appendChild(
-                document.getElementsByClassName("templateAir")[0].content.cloneNode(true));
-            var rangeslider = document.getElementById("sliderRange");
-            var output = document.getElementById("demo");
-            output.innerHTML = rangeslider.value;
-            rangeslider.oninput = function () {
-                output.innerHTML = this.value;
-            }
-        }
-        document.getElementById("buttonAir").addEventListener("click", slider);
 
         //Current Time
         function currentTime() {
@@ -216,16 +208,11 @@
             <img src="lock.png" width="53" height="50" id="locked">
             <img src="unlock.png" width="53" height="50" id="unlocked">
         </button>
-        <button id="buttonPressure" class="statusInformation">
-        </button>
+        <button id="buttonPressure" class="statusInformation"></button>
         <div class="teslaHome"><img src="Tesla.png" id="teslaHome" /></div>
-        <button id="buttonConsumption" class="statusInformation">
-        </button>
-        <button id="buttonSpeed" class="statusInformation">
-        </button>
-        <button id="buttonAir" class="statusInformation">
-            Klimaanlage
-        </button>
+        <button id="buttonConsumption" class="statusInformation"></button>
+        <button id="buttonSpeed" class="statusInformation"></button>
+        <button id="buttonAir" class="statusInformation">Klimaanlage</button>
     </template>
 
     <template class="templatePressure">

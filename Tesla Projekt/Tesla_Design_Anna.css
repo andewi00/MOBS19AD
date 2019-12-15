@@ -95,8 +95,8 @@ button:hover {
 #buttonPressure {
     padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
-    grid-column-start: 5;
-    grid-column-end: 8;
+    grid-column-start: 7;
+    grid-column-end: 9;
     grid-row: 6;
     justify-self: baseline;
     align-self: center;
@@ -191,7 +191,7 @@ footer {
     justify-content: center;
 }
 
-#Title {
+#title {
     grid-column: 1;
     justify-self: center;
     align-self: end;
@@ -210,7 +210,7 @@ footer {
     align-self: center;
 }
 
-div.Music {
+div.music {
     margin: auto;
     font-family: 'Century Gothic';
     font-size: 1em;
