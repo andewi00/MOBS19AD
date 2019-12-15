@@ -33,7 +33,7 @@ fetch('http://192.168.0.164:5000/Status').then(function (response) {
             document.getElementById("button3").innerHTML += actualValues[1].substr(1, 6) + " Liter";
 
             //Current Speed
-            document.getElementById("button4").innerHTML += actualValues[7].substr(1, 6) + " km/h";
+            document.getElementById("buttonSpeed").innerHTML += actualValues[7].substr(1, 6) + " km/h";
 
             document.getElementById("button1").addEventListener("click", ShowPressure);
 
@@ -74,7 +74,7 @@ fetch('http://192.168.0.164:5000/Status').then(function (response) {
         document.getElementById("button3").innerHTML += actualValues[1].substr(1, 6) + " Liter";
 
         //Current Speed
-        document.getElementById("button4").innerHTML += actualValues[7].substr(1, 6) + " km/h";
+        document.getElementById("buttonSpeed").innerHTML += actualValues[7].substr(1, 6) + " km/h";
 
 
         //Fuction Lock
@@ -144,7 +144,7 @@ fetch('http://192.168.0.164:5000/Status').then(function (response) {
 
 //Current Time
 function currentTime() {
-    var Today = new Date();
+    var Today = new date();
     var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
     var Hours, Minutes, Seconds
     Hours = hoursGet + ":";
@@ -181,4 +181,4 @@ function getToday() {
 
     return Today;
 }
-document.getElementById("Date").textContent = getToday();
+document.getElementById("date").textContent = getToday();

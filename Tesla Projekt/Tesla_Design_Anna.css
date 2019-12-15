@@ -24,7 +24,7 @@ header {
     justify-content: center;
 }
 
-#Back {
+#buttonHome {
     grid-column: 1;
     grid-row: 1;
     justify-self: center;
@@ -36,7 +36,7 @@ header {
     justify-self: end;
 }
 
-div.Status {
+div.headerInformation {
     margin: auto;
     font-family: 'Century Gothic';
     font-size: 1em;
@@ -45,7 +45,7 @@ div.Status {
     justify-content: space-between;
 }
 
-#Logo {
+#logo {
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -61,7 +61,7 @@ main {
     Background-color: #b4b0b0;
 }
 
-button.Status {
+button.headerInformation {
     padding-bottom: 10px;
     padding-top: 2px;
     border: none;
@@ -75,14 +75,14 @@ button:hover {
     outline: 0; /*Kein Rahmen nach Klick*/
 }
 
-#button0 {
+#buttonLock {
     grid-column: 1;
     grid-row: 1;
     justify-self: baseline;
     align-self: center;
 }
 
-#button1 {
+#buttonPressure {
     padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
     grid-column-start: 5;
@@ -92,7 +92,7 @@ button:hover {
     align-self: center;
 }
 
-#button1 {
+#buttonPressure {
     padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
     grid-column-start: 5;
@@ -102,7 +102,7 @@ button:hover {
     align-self: center;
 }
 
-#button3 {
+#buttonConsumption {
     padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
     grid-column-start: 6;
@@ -116,7 +116,7 @@ button:hover {
     font-weight: bold;
 }
 
-#button4 {
+#buttonSpeed {
     padding: 10px;
     grid-column: 1 / span 4; /* starts at column pos 1, spans 4 column */
     grid-column-start: 4;
@@ -130,7 +130,7 @@ button:hover {
     font-weight: bold;
 }
 
-#button5 {
+#buttonAir {
     padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
     grid-column-start: 2;
@@ -140,7 +140,7 @@ button:hover {
     align-self: center;
 }
 
-button.Value {
+button.statusInformation {
     display: inline;
     border: solid;
     border-color: #757575;
@@ -155,7 +155,7 @@ button.Value {
     Background-color: #757575;
 }
 
-    button.Value:hover {
+    button.statusInformation:hover {
         outline: 0; /*Kein Rahmen nach Klick*/
     }
 
@@ -219,7 +219,7 @@ div.Music {
     justify-content: space-between;
 }
 
-#templatePressure {
+#pressureAll {
     display: grid;
     grid-template-columns: 250px 340px 250px;
     grid-template-rows: 200px 200px 200px;
