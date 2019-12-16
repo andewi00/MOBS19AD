@@ -2,15 +2,12 @@
     padding: 0px;
     margin: 0px;
     font-size: 2em;
-    font-family: Impact, Haettenschweiler, Franklin Gothic Bold, Charcoal, Helvetica Inserat, Bitstream Vera Sans Bold, Arial Black, sans serif;
     display: grid;
     grid-template-areas: "header header header" "main main main" "footer footer footer";
     grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 10% auto 10%;
     height: 100vh;
-    /* Background: url('Tesla S.jpg');
-    Background-size: 90% 100%; */
-}
+  }
 
 header {
     grid-area: header;
@@ -38,7 +35,7 @@ header {
 
 div.headerInformation {
     margin: auto;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #b2aeae;
     display: flex;
@@ -52,7 +49,7 @@ div.headerInformation {
 
 main {
     display: grid;
-    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px 200px 200px;
     grid-template-rows: 100px 100px 100px 100px 100px;
     grid-gap: 20px;
     justify-content: center;
@@ -79,16 +76,6 @@ button:hover {
     grid-column: 1;
     grid-row: 1;
     justify-self: baseline;
-    align-self: center;
-}
-
-#buttonPressure {
-    padding: 10px;
-    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
-    grid-column-start: 5;
-    grid-column-end: 8;
-    grid-row: 6;
-    justify-self: center;
     align-self: center;
 }
 
@@ -140,18 +127,26 @@ button:hover {
     align-self: center;
 }
 
+#buttonWindow{
+padding: 10px;
+    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 2;
+    justify-self: baseline;
+    align-self: center;
+}
+
 button.statusInformation {
-    display: inline;
-    border: solid;
+        border: solid;
     border-color: #757575;
     border-radius: 0.5em;
     padding-bottom: 10px;
     padding-top: 10px;
     margin: 30px;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #dbd4d4;
-    justify-content: space-between;
     Background-color: #757575;
 }
 
@@ -160,7 +155,7 @@ button.statusInformation {
     }
 
 #Pressure {
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     text-align: center;
     vertical-align: middle;
 }
@@ -168,7 +163,7 @@ button.statusInformation {
 div.carPressure {
     padding-bottom: 5px;
     padding-top: 5px;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #656566;
     font-weight: bold;
@@ -181,7 +176,7 @@ footer {
     Background: linear-gradient(0deg, #262626, #727272);
     padding-bottom: 10px;
     padding-top: 5px;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #b2aeae;
     display: grid;
@@ -212,7 +207,7 @@ footer {
 
 div.music {
     margin: auto;
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #b2aeae;
     display: flex;
@@ -298,13 +293,13 @@ div.music {
     }
 
 h1 {
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1.5em;
     color: #656566;
 }
 
 p {
-    font-family: 'Century Gothic';
+    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #656566;
     font-weight: bold;
@@ -330,4 +325,61 @@ p {
 div.teslaHome {
     grid-column: 1;
     grid-row: 2;
+}
+
+.window{
+    border: solid;
+    border-color: #757575;
+    border-radius: 0.5em;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 30px;
+    font-family: 'Century Gothic', 'Arial';
+    font-size: 1em;
+    color: #dbd4d4;
+    Background-color: #757575;
+    
+}
+
+#allWindows {
+    display: grid;
+    grid-template-columns: 250px 340px 250px;
+    grid-template-rows: 200px 200px 200px;
+    grid-gap: 20px;
+    justify-content: center;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center;
+    align-self: baseline;
+    padding: 15px;
+}
+
+#buttonWindowLeft {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+    align-self: center;
+}
+
+#buttonWindowRight {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: baseline;
+    align-self: center;
+}
+
+#buttonWindowAll{
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: baseline;
+    align-self: center;
+
+}
+#carWindow {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: baseline;
+    width: auto;
+    height: 700px;
 }
