@@ -47,17 +47,6 @@ div.headerInformation {
     padding-top: 10px;
 }
 
-main {
-    display: grid;
-    grid-template-columns: 200px 200px 200px 200px 200px;
-    grid-template-rows: 100px 100px 100px 100px 100px;
-    grid-gap: 20px;
-    justify-content: center;
-    grid-area: main;
-    padding: 0px;
-    Background-color: #b4b0b0;
-}
-
 button.headerInformation {
     padding-bottom: 10px;
     padding-top: 2px;
@@ -72,12 +61,40 @@ button:hover {
     outline: 0; /*Kein Rahmen nach Klick*/
 }
 
+main {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-gap: 20px;
+    justify-content: center;
+    grid-area: main;
+    padding: 0px;
+    Background-color: #b4b0b0;
+}
+
 #buttonLock {
     grid-column: 1;
     grid-row: 1;
     justify-self: baseline;
     align-self: center;
 }
+
+button.statusInformation {
+        border: solid;
+    border-color: #757575;
+    border-radius: 0.5em;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 30px;
+    font-family: 'Century Gothic', 'Arial';
+    font-size: 1em;
+    color: #dbd4d4;
+    Background-color: #757575;
+}
+
+    button.statusInformation:hover {
+        outline: 0; /*Kein Rahmen nach Klick*/
+    }
 
 #buttonPressure {
     padding: 10px;
@@ -135,24 +152,7 @@ padding: 10px;
     grid-row: 2;
     justify-self: baseline;
     align-self: center;
-}
-
-button.statusInformation {
-        border: solid;
-    border-color: #757575;
-    border-radius: 0.5em;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    margin: 30px;
-    font-family: 'Century Gothic', 'Arial';
-    font-size: 1em;
-    color: #dbd4d4;
-    Background-color: #757575;
-}
-
-    button.statusInformation:hover {
-        outline: 0; /*Kein Rahmen nach Klick*/
-    }
+}  
 
 #Pressure {
     font-family: 'Century Gothic', 'Arial';
@@ -167,51 +167,6 @@ div.carPressure {
     font-size: 1em;
     color: #656566;
     font-weight: bold;
-}
-
-footer {
-    grid-area: footer;
-    display: flex;
-    justify-content: space-between;
-    Background: linear-gradient(0deg, #262626, #727272);
-    padding-bottom: 10px;
-    padding-top: 5px;
-    font-family: 'Century Gothic', 'Arial';
-    font-size: 1em;
-    color: #b2aeae;
-    display: grid;
-    grid-template-columns: 250px 250px 250px;
-    grid-template-rows: auto;
-    grid-gap: 150px;
-    justify-content: center;
-}
-
-#title {
-    grid-column: 1;
-    justify-self: center;
-    align-self: end;
-}
-
-#music.Player {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: center;
-    align-self: center;
-}
-
-#musicCover {
-    grid-column: 3;
-    justify-self: center;
-    align-self: center;
-}
-
-div.music {
-    margin: auto;
-    font-family: 'Century Gothic', 'Arial';
-    font-size: 1em;
-    color: #b2aeae;
-    display: flex;
-    justify-content: space-between;
 }
 
 #pressureAll {
@@ -277,7 +232,6 @@ div.music {
     border-radius: 10px;
 }
 
-
     .myslider::-webkit-slider-thumb {
         -webkit-appearance: none;
         cursor: auto;
@@ -286,7 +240,6 @@ div.music {
         height: 60px;
         border-radius: 10px;
     }
-
 
     .myslider:hover {
         opacity: 1;
@@ -327,7 +280,7 @@ div.teslaHome {
     grid-row: 2;
 }
 
-.window{
+.window {
     border: solid;
     border-color: #757575;
     border-radius: 0.5em;
@@ -338,7 +291,6 @@ div.teslaHome {
     font-size: 1em;
     color: #dbd4d4;
     Background-color: #757575;
-    
 }
 
 #allWindows {
@@ -368,13 +320,13 @@ div.teslaHome {
     align-self: center;
 }
 
-#buttonWindowAll{
+#buttonWindowAll {
     grid-column: 1;
     grid-row: 3;
     justify-self: baseline;
     align-self: center;
-
 }
+
 #carWindow {
     grid-column: 2;
     grid-row: 1;
@@ -383,3 +335,56 @@ div.teslaHome {
     width: auto;
     height: 700px;
 }
+
+footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: space-between;
+    Background: linear-gradient(180deg, #262626, #727272);
+    display: grid;
+    grid-template-columns: 200px 200px 200px 300px ;
+    grid-template-rows: auto;
+    grid-gap: 40px;
+    justify-content: center;
+
+  }
+
+.music {
+    margin: 5px;
+    font-family: 'Century Gothic', 'Arial';
+    font-size: 1em;
+    color: #b2aeae;
+ 
+}
+
+#lastSong,#nextSong {
+    margin: auto;
+    font-family: 'Century Gothic', 'Arial';
+    font-size: 1em;
+    color: #656566;
+    background-color:none;
+    display: flex;
+    justify-content: space-between;
+ }
+
+/*#title {
+    grid-column: 1;
+    justify-self: center;
+    align-self: end;
+}*/
+
+/*#music.Player {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+}*/
+
+/*#musicCover {
+    grid-column: 3;
+    justify-self: center;
+    align-self: center;
+}*/
+
+
+
