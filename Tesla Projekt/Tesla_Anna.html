@@ -18,11 +18,11 @@
     <header>
 
         <button id="buttonHome" class="headerInformation">
-            <img src="Home.png" width="53" height="50">
+            <img src="homeButton.png" width="53" height="50">
         </button>
         <div id="date" class="headerInformation"></div>
         <div id="logo" class="headerInformation">
-            <img src="Logo.png" width="85" height="80"> <!-- Proportion 1,0575-->
+            <img src="teslaLogo.png" width="85" height="80"> <!-- Proportion 1,0575-->
         </div>
         <div id="time" class="headerInformation"></div>
         <div id="temperature" class="headerInformation"></div>
@@ -37,7 +37,7 @@
             <img src="unlock.png" width="53" height="50" id="unlocked">
         </button>
         <button id="buttonPressure" class="statusInformation"></button>
-        <div class="teslaHome"> <img src="Tesla.png" id="teslaHome" /></div>
+        <div class="teslaHome"> <img src="teslaFront.png" id="teslaHome" /></div>
         <button id="buttonConsumption" class="statusInformation"></button>
         <button id="buttonSpeed" class="statusInformation"></button>
         <button id="buttonAir" class="statusInformation"></button>
@@ -48,15 +48,21 @@
 
     <footer>
 
+        <button id="buttonPlaylist">Playlist ♪♫</button>
         <button id="buttonPreviousSong" class="music"> << </button>
         <div id="title" class="music">MUSIK♪♫</div>
         <button id="buttonNextSong" class="music"> >> </button>
-        <button id="buttonPlaylist"> MusicList</button>
 
     </footer>
 
 
     <script>
+
+        // ######################################################
+        //
+        // Initialisation
+        //
+        // ######################################################
 
         var flagHome = true;
         var flagPressure = false;
@@ -69,7 +75,21 @@
         var playlistLength = 0;
         var playlist = " --- ";
 
+        if (carLocked == true) {
+            document.getElementById("locked").style.display = "block";
+            document.getElementById("unlocked").style.display = "none";
+        } else if (carLocked == false) {
+            document.getElementById("locked").style.display = "none";
+            document.getElementById("unlocked").style.display = "block";
+        }
+
         fetchMusic();
+
+        // ######################################################
+        //
+        // Music
+        //
+        // ######################################################
 
         function fetchMusic() {
             fetch('http://192.168.0.164:5000/music')
@@ -79,7 +99,6 @@
                     playlistLength = musicList.length;
                 });
         }
-
 
         function templateMusic() {
             let mainElement = document.querySelector("main");
@@ -92,7 +111,6 @@
             flagMusic = false;
             musicList();
         }
-
 
         function musicList() {
             fetch('http://192.168.0.164:5000/music')
@@ -127,27 +145,27 @@
             fetchMusic();
         }
 
-        //Lock and unlock start
-        if (carLocked == true) {
-            document.getElementById("locked").style.display = "block";
-            document.getElementById("unlocked").style.display = "none";
-        } else if (carLocked == false) {
-            document.getElementById("locked").style.display = "none";
-            document.getElementById("unlocked").style.display = "block";
-        }
-
+        // ######################################################
+        //
+        // Interval
+        //
+        // ######################################################
 
         window.setInterval(function () {
 
+            // ######################################################
+            //
+            //Get python data - Status information
+            //
+            // ######################################################
 
-            //Get Python Service Data
             fetch('http://192.168.0.164:5000/status').then(function (response) {
                 response.text()
                     .then(function (text) {
                         let actualValues = text.split(/,|:/);
 
                         if (flagHome == true) {
-                            console.log(text);
+                            // console.log(text);
                             document.getElementById("buttonWindow").innerHTML = "Fenstereinstellungen";
                             document.getElementById("buttonPressure").innerHTML = "Luftdruck";
                             document.getElementById("buttonAir").innerHTML = "Klimaanlage";
@@ -158,14 +176,13 @@
 
                         if (flagPressure == true) {
                             document.getElementById("frontLeft").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
-                            document.getElementById("frontRight").innerHTML = Math.round(actualValues[5].substr(1, 3) * 0.99) + " kPa";
+                            document.getElementById("frontRight").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
                             document.getElementById("backLeft").innerHTML = actualValues[5].substr(1, 6) + " kPa";
                             document.getElementById("backRight").innerHTML = actualValues[5].substr(1, 6) + " kPa";
                         }
                     });
             });
             document.getElementById("buttonHome").addEventListener("click", templateHomeScreen);
-
 
             if (flagHome == true) {
                 document.getElementById("buttonPressure").addEventListener("click", templatePressure);
@@ -176,8 +193,6 @@
                 document.getElementById("buttonPreviousSong").addEventListener("click", previousSong);
                 document.getElementById("buttonNextSong").addEventListener("click", nextSong);
 
-
-                //Lock and unlock the car
                 if (carLocked == true) {
                     document.getElementById("locked").style.display = "block";
                     document.getElementById("unlocked").style.display = "none";
@@ -188,10 +203,14 @@
                 document.getElementById("buttonLock").addEventListener("click", lockUnlock);
             }
 
-
         }, 1000
         );
 
+        // ######################################################
+        //
+        // Tamplates
+        //
+        // ######################################################
 
         //Template HomeScreen
         function templateHomeScreen() {
@@ -205,7 +224,6 @@
             flagMusic = false;
         }
 
-
         //Template Pressure
         function templatePressure() {
             let mainElement = document.querySelector("main");
@@ -217,7 +235,6 @@
             flagWindow = false;
             flagMusic = false;
         }
-
 
         //Template Air
         function templateSlider() {
@@ -234,7 +251,6 @@
             }
         }
 
-
         function showSlider() {
             var rangeslider = document.getElementById("sliderRange");
             var output = document.getElementById("demo");
@@ -243,7 +259,6 @@
                 output.innerHTML = this.value;
             }
         }
-
 
         //Template Window
         function templateWindow() {
@@ -262,60 +277,68 @@
             }
         }
 
+        // ######################################################
+        //
+        // Close and open window
+        //
+        // ######################################################
 
         function closeOpenWindow() {
             windowClose = !windowClose;
             if (windowClose == true) {
-                console.log("if true");
+                //console.log("window closed");
                 fetch('http://192.168.0.164:5000/window/close');
-
-
             }
             else if (windowClose == false) {
-                console.log("if false");
+                //console.log("window opened");
                 fetch('http://192.168.0.164:5000/window/open');
-
-
             }
         }
-
 
         function closeOpenAllWindows() {
             windowClose = !windowClose;
             if (windowClose == true) {
                 document.getElementById("buttonWindowAll").innerHTML = "Alle Fenster geschlossen";
-                console.log("if true");
+                // console.log("if opened");
                 fetch('http://192.168.0.164:5000/allWindows/close');
             }
 
             else if (windowClose == false) {
                 document.getElementById("buttonWindowAll").innerHTML = "Alle Fenster geöffnet";
-                console.log("if false");
+                // console.log("if closed");
                 fetch('http://192.168.0.164:5000/allWindows/open');
             }
         }
 
+        // ######################################################
+        //
+        // Lock and unlock car
+        //
+        // ######################################################
 
-        //Lock and unlock the car
         function lockUnlock() {
             carLocked = !carLocked;
             if (carLocked == true) {
                 document.getElementById("locked").style.display = "block";
                 document.getElementById("unlocked").style.display = "none";
-                console.log("if true");
+                // console.log("if true");
                 fetch('http://192.168.0.164:5000/action/lock');
             }
             else if (carLocked == false) {
                 document.getElementById("locked").style.display = "none";
                 document.getElementById("unlocked").style.display = "block";
-                console.log("if false");
+                // console.log("if false");
                 fetch('http://192.168.0.164:5000/action/unlock');
             }
         }
         document.getElementById("buttonLock").addEventListener("click", lockUnlock);
 
+        // ######################################################
+        //
+        // Time
+        //
+        // ######################################################
 
-        //Current Time
         function currentTime() {
             var Today = new Date();
             var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
@@ -330,8 +353,12 @@
         }
         window.onload = currentTime;
 
+        // ######################################################
+        //
+        // Date
+        //
+        // ######################################################
 
-        //Current Date
         function getToday() {
             var Today = new Date();
             var Day = Today.getDate(); // Day
@@ -360,7 +387,7 @@
             <img src="unlock.png" width="53" height="50" id="unlocked">
         </button>
         <button id="buttonPressure" class="statusInformation"></button>
-        <div class="teslaHome"><img src="Tesla.png" id="teslaHome" /></div>
+        <div class="teslaHome"><img src="teslaFront.png" id="teslaHome" /></div>
         <button id="buttonConsumption" class="statusInformation"></button>
         <button id="buttonSpeed" class="statusInformation"></button>
         <button id="buttonAir" class="statusInformation">Klimaanlage</button>
@@ -373,7 +400,7 @@
 
         <div id="pressureAll">
             <div id="frontLeft" class="carPressure"> </div>
-            <div><img src="TeslaPressure.png" id="Car"></div>
+            <div><img src="teslaTop.png" id="Car"></div>
             <div id="frontRight" class="carPressure"> </div>
             <div id="backLeft" class="carPressure"> </div>
             <div id="backRight" class="carPressure"> </div>
@@ -401,7 +428,7 @@
         <div id="allWindows">
             <button id="buttonWindowLeft" class="window"> Fenster Links </button>
             <button id="buttonWindowRight" class="window"> Fenster Rechts </button>
-            <img src="TeslaPressure.png" id="carWindow">
+            <img src="teslaTop.png" id="carWindow">
             <button id="buttonWindowAll" class="window"> Alle Fenster </button>
         </div>
 

@@ -7,7 +7,7 @@
     grid-template-columns: 200px 1fr 200px;
     grid-template-rows: 10% auto 10%;
     height: 100vh;
-  }
+}
 
 header {
     grid-area: header;
@@ -80,7 +80,7 @@ main {
 }
 
 button.statusInformation {
-        border: solid;
+    border: solid;
     border-color: #757575;
     border-radius: 0.5em;
     padding-bottom: 10px;
@@ -144,15 +144,15 @@ button.statusInformation {
     align-self: center;
 }
 
-#buttonWindow{
-padding: 10px;
+#buttonWindow {
+    padding: 10px;
     grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row: 2;
     justify-self: baseline;
     align-self: center;
-}  
+}
 
 #Pressure {
     font-family: 'Century Gothic', 'Arial';
@@ -342,36 +342,34 @@ footer {
     justify-content: space-between;
     Background: linear-gradient(180deg, #262626, #727272);
     display: grid;
-    grid-template-columns: 200px 200px 200px 300px ;
+    grid-template-columns: 200px 200px 250px 200px;
     grid-template-rows: auto;
-    grid-gap: 40px;
+    grid-gap: 30px;
     justify-content: center;
-
-  }
+}
 
 .music {
     margin: 5px;
     font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #b2aeae;
- 
 }
 
-#lastSong,#nextSong {
+#buttonPreviousSong, #buttonNextSong, #buttonPlaylist {
     margin: auto;
+    padding: 9px;
     font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #656566;
-    background-color:none;
+    background-color: none;
     display: flex;
     justify-content: space-between;
- }
+}
 
-/*#title {
-    grid-column: 1;
+#title {
     justify-self: center;
-    align-self: end;
-}*/
+    align-self: center;
+}
 
 /*#music.Player {
     grid-column: 2;
