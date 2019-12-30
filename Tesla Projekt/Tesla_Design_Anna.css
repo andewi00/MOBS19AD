@@ -1,11 +1,9 @@
 ﻿body {
-    padding: 0px;
-    margin: 0px;
     font-size: 2em;
     display: grid;
     grid-template-areas: "header header header" "main main main" "footer footer footer";
     grid-template-columns: 200px 1fr 200px;
-    grid-template-rows: 10% auto 10%;
+    grid-template-rows: 15% auto 10%;
     height: 100vh;
 }
 
@@ -58,12 +56,12 @@ button.headerInformation {
 }
 
 button:hover {
-    outline: 0; /*Kein Rahmen nach Klick*/
+    outline: 0; /*no border after clicking*/
 }
 
 main {
     display: grid;
-    grid-template-columns: 200px 200px 200px 200px 200px;
+    grid-template-columns: 500px 200px 200px 200px 100px;
     grid-template-rows: 100px 100px 100px 100px 100px;
     grid-gap: 20px;
     justify-content: center;
@@ -72,8 +70,39 @@ main {
     Background-color: #b4b0b0;
 }
 
+button.statusInformation:hover {
+    outline: 0;
+}
+
+#statusConsumption {
+    padding: 10px;
+    grid-column: 1 / span 3;
+    grid-column-start: 5;
+    grid-column-end: 8;
+    grid-row: 2;
+    justify-self: baseline;
+    align-self: center;
+    Background-color: #b4b0b0;
+    border-color: #b4b0b0;
+    color: #656566;
+    font-weight: bold;
+}
+
+#statusSpeed {
+    padding: 10px;
+    grid-column: 1 / span 4; /* starts at column pos 1, spans 4 column */
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row: 1;
+    justify-self: baseline;
+    align-self: center;
+    Background-color: #b4b0b0;
+    border-color: #b4b0b0;
+    color: #656566;
+    font-weight: bold;
+}
+
 #buttonLock {
-    grid-column: 1;
     grid-row: 1;
     justify-self: baseline;
     align-self: center;
@@ -92,51 +121,19 @@ button.statusInformation {
     Background-color: #757575;
 }
 
-    button.statusInformation:hover {
-        outline: 0; /*Kein Rahmen nach Klick*/
-    }
-
 #buttonPressure {
     padding: 10px;
-    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
-    grid-column-start: 7;
-    grid-column-end: 9;
-    grid-row: 6;
-    justify-self: baseline;
-    align-self: center;
-}
-
-#buttonConsumption {
-    padding: 10px;
-    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
-    grid-column-start: 6;
-    grid-column-end: 9;
+    grid-column: 1 / span 3;
+    grid-column-start: 5;
+    grid-column-end: 7;
     grid-row: 4;
     justify-self: baseline;
     align-self: center;
-    Background-color: #b4b0b0;
-    border-color: #b4b0b0;
-    color: #656566;
-    font-weight: bold;
-}
-
-#buttonSpeed {
-    padding: 10px;
-    grid-column: 1 / span 4; /* starts at column pos 1, spans 4 column */
-    grid-column-start: 4;
-    grid-column-end: 8;
-    grid-row: 1;
-    justify-self: baseline;
-    align-self: center;
-    Background-color: #b4b0b0;
-    border-color: #b4b0b0;
-    color: #656566;
-    font-weight: bold;
 }
 
 #buttonAir {
     padding: 10px;
-    grid-column: 1 / span 3; /* starts at column pos 1, spans 4 column */
+    grid-column: 1 / span 3;
     grid-column-start: 2;
     grid-column-end: 5;
     grid-row: 1;
@@ -350,9 +347,15 @@ footer {
 
 .music {
     margin: 5px;
-    font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #b2aeae;
+}
+
+li, div {
+    color: #656566;
+    font-family: 'Century Gothic', 'Arial';
+    font-size: 1em;
+    font-weight: bold;
 }
 
 #buttonPreviousSong, #buttonNextSong, #buttonPlaylist {
@@ -361,6 +364,7 @@ footer {
     font-family: 'Century Gothic', 'Arial';
     font-size: 1em;
     color: #656566;
+    border-radius: 0.5em;
     background-color: none;
     display: flex;
     justify-content: space-between;
@@ -370,19 +374,3 @@ footer {
     justify-self: center;
     align-self: center;
 }
-
-/*#music.Player {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: center;
-    align-self: center;
-}*/
-
-/*#musicCover {
-    grid-column: 3;
-    justify-self: center;
-    align-self: center;
-}*/
-
-
-

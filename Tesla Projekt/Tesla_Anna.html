@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 
@@ -8,6 +9,7 @@
     <meta charset="utf-8" />
     <title>Tesla Entertainment</title>
     <link rel="stylesheet" href="Tesla_Design_Anna.css">
+    <script type="text/javascript" src="Tesla_Script_Anna.js" charset="utf-8"></script>
 
 </head>
 
@@ -25,7 +27,7 @@
             <img src="teslaLogo.png" width="85" height="80"> <!-- Proportion 1,0575-->
         </div>
         <div id="time" class="headerInformation"></div>
-        <div id="temperature" class="headerInformation"></div>
+        <div id="statusTemperature" class="headerInformation"></div>
 
     </header>
 
@@ -33,13 +35,13 @@
     <main>
 
         <button id="buttonLock" class="statusInformation">
-            <img src="lock.png" width="53" height="50" id="locked">
-            <img src="unlock.png" width="53" height="50" id="unlocked">
+            <img src="lock.png" width="53" height="50" id="locked" style="display: none">
+            <img src="unlock.png" width="53" height="50" id="unlocked" style="display: block">
         </button>
         <button id="buttonPressure" class="statusInformation"></button>
-        <div class="teslaHome"> <img src="teslaFront.png" id="teslaHome" /></div>
-        <button id="buttonConsumption" class="statusInformation"></button>
-        <button id="buttonSpeed" class="statusInformation"></button>
+        <div id="teslaHome" class="teslaHome"> <img src="teslaFront.png" /></div>
+        <button id="statusConsumption" class="statusInformation"></button>
+        <button id="statusSpeed" class="statusInformation"></button>
         <button id="buttonAir" class="statusInformation"></button>
         <button id="buttonWindow" class="statusInformation"></button>
 
@@ -54,344 +56,20 @@
         <button id="buttonNextSong" class="music"> >> </button>
 
     </footer>
-
-
-    <script>
-
-        // ######################################################
-        //
-        // Initialisation
-        //
-        // ######################################################
-
-        var flagHome = true;
-        var flagPressure = false;
-        var flagAir = false;
-        var flagWindow = false;
-        var flagMusic = false;
-        var windowClose = false;
-        var carLocked = false;
-        var currentTitle = 0;
-        var playlistLength = 0;
-        var playlist = " --- ";
-
-        if (carLocked == true) {
-            document.getElementById("locked").style.display = "block";
-            document.getElementById("unlocked").style.display = "none";
-        } else if (carLocked == false) {
-            document.getElementById("locked").style.display = "none";
-            document.getElementById("unlocked").style.display = "block";
-        }
-
-        fetchMusic();
-
-        // ######################################################
-        //
-        // Music
-        //
-        // ######################################################
-
-        function fetchMusic() {
-            fetch('http://192.168.0.164:5000/music')
-                .then(response => response.json())
-                .then(function (musicList) {
-                    document.getElementById("title").innerHTML = musicList[currentTitle].title;
-                    playlistLength = musicList.length;
-                });
-        }
-
-        function templateMusic() {
-            let mainElement = document.querySelector("main");
-            mainElement.innerHTML = "";
-            mainElement.appendChild(document.getElementsByClassName("templateMusic")[0].content.cloneNode(true));
-            flagPressure = false;
-            flagHome = false;
-            flagAir = false;
-            flagWindow = false;
-            flagMusic = false;
-            musicList();
-        }
-
-        function musicList() {
-            fetch('http://192.168.0.164:5000/music')
-                .then(response => response.json())
-                .then(function (musicList) {
-                    playlist = " --- ";
-                    for (i = 0; i < musicList.length; i++) {
-                        playlist = playlist + musicList[i].title + " by " + musicList[i].artist + " --- ";
-                        document.getElementById("musicPlaylist").innerHTML = playlist;
-                    }
-                });
-        };
-
-        function previousSong() {
-            if (currentTitle == 0) {
-                currentTitle = playlistLength - 1;
-            }
-            else {
-                currentTitle--;
-            }
-            fetchMusic();
-
-        }
-
-        function nextSong() {
-            if (currentTitle < playlistLength - 1) {
-                currentTitle++;
-            }
-            else {
-                currentTitle = 0;
-            }
-            fetchMusic();
-        }
-
-        // ######################################################
-        //
-        // Interval
-        //
-        // ######################################################
-
-        window.setInterval(function () {
-
-            // ######################################################
-            //
-            //Get python data - Status information
-            //
-            // ######################################################
-
-            fetch('http://192.168.0.164:5000/status').then(function (response) {
-                response.text()
-                    .then(function (text) {
-                        let actualValues = text.split(/,|:/);
-
-                        if (flagHome == true) {
-                            // console.log(text);
-                            document.getElementById("buttonWindow").innerHTML = "Fenstereinstellungen";
-                            document.getElementById("buttonPressure").innerHTML = "Luftdruck";
-                            document.getElementById("buttonAir").innerHTML = "Klimaanlage";
-                            document.getElementById("buttonConsumption").innerHTML = "Verbrauch: " + actualValues[1].substr(1, 3) + " Liter";
-                            document.getElementById("buttonSpeed").innerHTML = "Geschwindigkeit: " + actualValues[7].substr(1, 6) + " km/h";
-                        }
-                        document.getElementById("temperature").innerHTML = actualValues[9].substr(1, 4) + "°C / " + actualValues[3].substr(1, 5) + "%";
-
-                        if (flagPressure == true) {
-                            document.getElementById("frontLeft").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
-                            document.getElementById("frontRight").innerHTML = Math.round(actualValues[5].substr(1, 4) * 0.99) + " kPa";
-                            document.getElementById("backLeft").innerHTML = actualValues[5].substr(1, 6) + " kPa";
-                            document.getElementById("backRight").innerHTML = actualValues[5].substr(1, 6) + " kPa";
-                        }
-                    });
-            });
-            document.getElementById("buttonHome").addEventListener("click", templateHomeScreen);
-
-            if (flagHome == true) {
-                document.getElementById("buttonPressure").addEventListener("click", templatePressure);
-                document.getElementById("buttonAir").addEventListener("click", templateSlider);
-                document.getElementById("buttonWindow").addEventListener("click", templateWindow);
-                //music
-                document.getElementById("buttonPlaylist").addEventListener("click", templateMusic);
-                document.getElementById("buttonPreviousSong").addEventListener("click", previousSong);
-                document.getElementById("buttonNextSong").addEventListener("click", nextSong);
-
-                if (carLocked == true) {
-                    document.getElementById("locked").style.display = "block";
-                    document.getElementById("unlocked").style.display = "none";
-                } else if (carLocked == false) {
-                    document.getElementById("locked").style.display = "none";
-                    document.getElementById("unlocked").style.display = "block";
-                }
-                document.getElementById("buttonLock").addEventListener("click", lockUnlock);
-            }
-
-        }, 1000
-        );
-
-        // ######################################################
-        //
-        // Tamplates
-        //
-        // ######################################################
-
-        //Template HomeScreen
-        function templateHomeScreen() {
-            let mainElement = document.querySelector("main");
-            mainElement.innerHTML = "";
-            mainElement.appendChild(document.getElementsByClassName("templateHome")[0].content.cloneNode(true));//Clone and open template
-            flagPressure = false;
-            flagHome = true;
-            flagAir = false;
-            flagWindow = false;
-            flagMusic = false;
-        }
-
-        //Template Pressure
-        function templatePressure() {
-            let mainElement = document.querySelector("main");
-            mainElement.innerHTML = "";
-            mainElement.appendChild(document.getElementsByClassName("templatePressure")[0].content.cloneNode(true));
-            flagPressure = true;
-            flagHome = false;
-            flagAir = false;
-            flagWindow = false;
-            flagMusic = false;
-        }
-
-        //Template Air
-        function templateSlider() {
-            let mainElement = document.querySelector("main");
-            mainElement.innerHTML = "";
-            mainElement.appendChild(document.getElementsByClassName("templateAir")[0].content.cloneNode(true));
-            flagPressure = false;
-            flagHome = false;
-            flagAir = true;
-            flagWindow = false;
-            flagMusic = false;
-            if (flagAir == true) {
-                showSlider();
-            }
-        }
-
-        function showSlider() {
-            var rangeslider = document.getElementById("sliderRange");
-            var output = document.getElementById("demo");
-            output.innerHTML = rangeslider.value;
-            rangeslider.oninput = function () {
-                output.innerHTML = this.value;
-            }
-        }
-
-        //Template Window
-        function templateWindow() {
-            let mainElement = document.querySelector("main");
-            mainElement.innerHTML = "";
-            mainElement.appendChild(document.getElementsByClassName("templateWindow")[0].content.cloneNode(true));
-            flagPressure = false;
-            flagHome = false;
-            flagAir = false;
-            flagWindow = true;
-            flagMusic = false;
-            if (flagWindow == true) {
-                document.getElementById("buttonWindowLeft").addEventListener("click", closeOpenWindow);
-                document.getElementById("buttonWindowRight").addEventListener("click", closeOpenWindow);
-                document.getElementById("buttonWindowAll").addEventListener("click", closeOpenAllWindows);
-            }
-        }
-
-        // ######################################################
-        //
-        // Close and open window
-        //
-        // ######################################################
-
-        function closeOpenWindow() {
-            windowClose = !windowClose;
-            if (windowClose == true) {
-                //console.log("window closed");
-                fetch('http://192.168.0.164:5000/window/close');
-            }
-            else if (windowClose == false) {
-                //console.log("window opened");
-                fetch('http://192.168.0.164:5000/window/open');
-            }
-        }
-
-        function closeOpenAllWindows() {
-            windowClose = !windowClose;
-            if (windowClose == true) {
-                document.getElementById("buttonWindowAll").innerHTML = "Alle Fenster geschlossen";
-                // console.log("if opened");
-                fetch('http://192.168.0.164:5000/allWindows/close');
-            }
-
-            else if (windowClose == false) {
-                document.getElementById("buttonWindowAll").innerHTML = "Alle Fenster geöffnet";
-                // console.log("if closed");
-                fetch('http://192.168.0.164:5000/allWindows/open');
-            }
-        }
-
-        // ######################################################
-        //
-        // Lock and unlock car
-        //
-        // ######################################################
-
-        function lockUnlock() {
-            carLocked = !carLocked;
-            if (carLocked == true) {
-                document.getElementById("locked").style.display = "block";
-                document.getElementById("unlocked").style.display = "none";
-                // console.log("if true");
-                fetch('http://192.168.0.164:5000/action/lock');
-            }
-            else if (carLocked == false) {
-                document.getElementById("locked").style.display = "none";
-                document.getElementById("unlocked").style.display = "block";
-                // console.log("if false");
-                fetch('http://192.168.0.164:5000/action/unlock');
-            }
-        }
-        document.getElementById("buttonLock").addEventListener("click", lockUnlock);
-
-        // ######################################################
-        //
-        // Time
-        //
-        // ######################################################
-
-        function currentTime() {
-            var Today = new Date();
-            var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
-            var Hours, Minutes, Seconds
-            Hours = hoursGet + ":";
-            if (minutesGet < 10) { Minutes = '0' + minutesGet + ":"; }
-            else { Minutes = minutesGet + ":"; }
-            if (secondsGet < 10) { Seconds = '0' + secondsGet; }
-            else { Seconds = secondsGet; }
-            time.innerHTML = Hours + Minutes + Seconds + " Uhr";
-            window.setTimeout("currentTime();", 1000);
-        }
-        window.onload = currentTime;
-
-        // ######################################################
-        //
-        // Date
-        //
-        // ######################################################
-
-        function getToday() {
-            var Today = new Date();
-            var Day = Today.getDate(); // Day
-            // Months start at 0!
-            var Month = Today.getMonth() + 1; // Month
-            var Year = Today.getFullYear(); // Year
-            if (Day < 10) {
-                Day = '0' + day;
-            }
-            if (Month < 10) {
-                Month = '0' + month;
-            }
-            Today = Day + '.' + Month + '.' + Year;
-            return Today;
-        }
-        document.getElementById("date").textContent = getToday();
-
-//1920 1080px
-    </script>
-
+    
 
     <template class="templateHome">
 
         <button id="buttonLock" class="statusInformation">
-            <img src="lock.png" width="53" height="50" id="locked">
-            <img src="unlock.png" width="53" height="50" id="unlocked">
+            <img src="lock.png" width="53" height="50" id="locked" style="display: none">
+            <img src="unlock.png" width="53" height="50" id="unlocked" style="display: block">
         </button>
         <button id="buttonPressure" class="statusInformation"></button>
-        <div class="teslaHome"><img src="teslaFront.png" id="teslaHome" /></div>
-        <button id="buttonConsumption" class="statusInformation"></button>
-        <button id="buttonSpeed" class="statusInformation"></button>
-        <button id="buttonAir" class="statusInformation">Klimaanlage</button>
-        <button id="buttonWindow" class="statusInformation"> Fenstereinstellungen</button>
+        <div id="teslaHome" class="teslaHome"> <img src="teslaFront.png" /></div>
+        <button id="statusConsumption" class="statusInformation"></button>
+        <button id="statusSpeed" class="statusInformation"></button>
+        <button id="buttonAir" class="statusInformation"></button>
+        <button id="buttonWindow" class="statusInformation"></button>
 
     </template>
 
@@ -426,10 +104,9 @@
     <template class="templateWindow">
 
         <div id="allWindows">
-            <button id="buttonWindowLeft" class="window"> Fenster Links </button>
-            <button id="buttonWindowRight" class="window"> Fenster Rechts </button>
+            <button id="buttonWindowLeft" class="window">Fenster Links zu</button>
+            <button id="buttonWindowRight" class="window">Fenster Rechts zu</button>
             <img src="teslaTop.png" id="carWindow">
-            <button id="buttonWindowAll" class="window"> Alle Fenster </button>
         </div>
 
     </template>
@@ -437,7 +114,7 @@
 
     <template class="templateMusic">
 
-        <div id="musicPlaylist">Test</div>
+        <div id="musicPlaylist">Playlist</div>
 
     </template>
 
