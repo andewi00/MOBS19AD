@@ -324,19 +324,23 @@ function unlockCar() {
 //
 // ######################################################
 
-function currentTime() {
-    var Today = new Date();
-    var hoursGet = Today.getHours(); var minutesGet = Today.getMinutes(); var secondsGet = Today.getSeconds();
-    var Hours, Minutes, Seconds
-    Hours = hoursGet + ":";
-    if (minutesGet < 10) { Minutes = '0' + minutesGet + ":"; }
-    else { Minutes = minutesGet + ":"; }
-    if (secondsGet < 10) { Seconds = '0' + secondsGet; }
-    else { Seconds = secondsGet; }
-    time.innerHTML = Hours + Minutes + Seconds + " Uhr";
-    window.setTimeout("currentTime();", 1000);
+function getTime() {
+    var currentTime = new Date();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var seconds = currentTime.getSeconds();
+    
+    if (minutes < 10) {
+        minutes = '0' + minutes;
+    }
+    if (seconds < 10) {
+        seconds = '0' + seconds;
+    }
+    
+    time.innerHTML = hours + ":" + minutes + ":" + seconds + " Uhr";
+    window.setTimeout("getTime();", 1000);
 }
-window.onload = currentTime;
+window.onload = getTime;
 
 // ######################################################
 //
@@ -345,19 +349,19 @@ window.onload = currentTime;
 // ######################################################
 
 function getToday() {
-    var Today = new Date();
-    var Day = Today.getDate(); // Day
-    // Months start at 0!
-    var Month = Today.getMonth() + 1; // Month
-    var Year = Today.getFullYear(); // Year
-    if (Day < 10) {
-        Day = '0' + day;
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Months start at 0!
+    var year = today.getFullYear();
+
+    if (day < 10) {
+        day = '0' + day;
     }
-    if (Month < 10) {
-        Month = '0' + month;
+    if (month < 10) {
+        month = '0' + month;
     }
-    Today = Day + '.' + Month + '.' + Year;
-    return Today;
+    today = day + '.' + month + '.' + year;
+    return today;
 }
 
 //1920 1080px
