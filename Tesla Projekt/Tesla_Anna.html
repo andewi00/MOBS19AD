@@ -27,7 +27,7 @@
             <img src="teslaLogo.png" width="85" height="80"> <!-- Proportion 1,0575-->
         </div>
         <div id="time" class="headerInformation"></div>
-        <div id="statusTemperature" class="headerInformation"></div>
+        <div id="statusTemperature" class="headerInformation"></div> <!-- Temperature and Humidity -->
 
     </header>
 
@@ -52,7 +52,7 @@
 
         <button id="buttonPlaylist">Playlist ♪♫</button>
         <button id="buttonPreviousSong" class="music"> << </button>
-        <div id="title" class="music">MUSIK♪♫</div>
+        <div id="title" class="music">Kein Titel vefügbar</div>
         <button id="buttonNextSong" class="music"> >> </button>
 
     </footer>
@@ -78,7 +78,7 @@
 
         <div id="pressureAll">
             <div id="frontLeft" class="carPressure"> </div>
-            <div><img src="teslaTop.png" id="Car"></div>
+            <div><img src="teslaTop.png" id="car"></div>
             <div id="frontRight" class="carPressure"> </div>
             <div id="backLeft" class="carPressure"> </div>
             <div id="backRight" class="carPressure"> </div>
@@ -94,7 +94,7 @@
             <p>Hier können Sie Ihre Wunschtemperatur festlegen:</p>
             <div class="rangeslider">
                 <input type="range" min="18" max="26" Value="10" class="myslider" id="sliderRange">
-                <p><span id="demo"></span> °C</p>
+                <p><span id="demo"></span> &degC</p> <!-- inline element instead of div -->
             </div>
         </div>
 

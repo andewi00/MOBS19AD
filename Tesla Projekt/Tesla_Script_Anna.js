@@ -50,18 +50,7 @@ function fetchMusic() {
         });
 }
 
-function templateMusic() {
-    let mainElement = document.querySelector("main");
-    mainElement.innerHTML = "";
-    mainElement.appendChild(document.getElementsByClassName("templateMusic")[0].content.cloneNode(true));
-    flagPressure = false;
-    flagHome = false;
-    flagAir = false;
-    flagWindow = false;
-    flagMusic = false;
-    musicList();
-}
-
+//Playlist
 function musicList() {
     fetch('http://192.168.0.164:5000/music')
         .then(response => response.json())
@@ -69,7 +58,6 @@ function musicList() {
 
             // create list and append to html element (div)
             var ul = document.createElement("ul");
-            ul.setAttribute("id", "musicPlaylist");
             document.getElementById("musicPlaylist").appendChild(ul);
 
             // create list elements and append to list
@@ -129,7 +117,6 @@ function fetchData() {
 
             // shown in home template
             if (flagHome == true) {
-                // console.log(text);
                 // name buttons
                 document.getElementById("buttonWindow").innerHTML = "Fenstereinstellungen";
                 document.getElementById("buttonPressure").innerHTML = "Luftdruck";
@@ -168,6 +155,12 @@ function listenEvents() {
         document.getElementById("buttonNextSong").addEventListener("click", nextSong);
         // lock
         document.getElementById("buttonLock").addEventListener("click", lockUnlockCar);
+    }
+	
+	// event listener in window target
+	if (flagWindow == true) {
+        document.getElementById("buttonWindowLeft").addEventListener("click", closeOpenLeftWindow);
+        document.getElementById("buttonWindowRight").addEventListener("click", closeOpenRightWindow);
     }
 }
 
@@ -236,13 +229,20 @@ function templateWindow() {
     flagAir = false;
     flagWindow = true;
     flagMusic = false;
-    if (flagWindow == true) {
-        document.getElementById("buttonWindowLeft").addEventListener("click", closeOpenLeftWindow);
-        document.getElementById("buttonWindowRight").addEventListener("click", closeOpenRightWindow);
-        document.getElementById("buttonWindowAll").addEventListener("click", closeOpenAllWindows);
-    }
 }
 
+//Template Music
+function templateMusic() {
+    let mainElement = document.querySelector("main");
+    mainElement.innerHTML = "";
+    mainElement.appendChild(document.getElementsByClassName("templateMusic")[0].content.cloneNode(true));
+    flagPressure = false;
+    flagHome = false;
+    flagAir = false;
+    flagWindow = false;
+    flagMusic = false;
+    musicList();
+}
 // ######################################################
 //
 // Close and open window
@@ -294,17 +294,14 @@ function openWindow(window) {
 // ######################################################
 
 function lockUnlockCar() {
-    //console.log("lockunlock");
     if (carLocked == false) {
         document.getElementById("locked").style.display = "block";
         document.getElementById("unlocked").style.display = "none";
-        //console.log("if true");
         lockCar();
     }
     else if (carLocked == true) {
         document.getElementById("locked").style.display = "none";
         document.getElementById("unlocked").style.display = "block";
-        //console.log("if false");
         unlockCar();
     }
     carLocked = !carLocked;
@@ -338,7 +335,7 @@ function getTime() {
     }
     
     time.innerHTML = hours + ":" + minutes + ":" + seconds + " Uhr";
-    window.setTimeout("getTime();", 1000);
+    window.setInterval("getTime();", 1000);
 }
 window.onload = getTime;
 
